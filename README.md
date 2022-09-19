@@ -1,6 +1,6 @@
-Architecture Flow diagrame :
 
-<<<<<<< HEAD
+
+
 ## features
 
 ## Architecture
@@ -15,16 +15,44 @@ Architecture Flow diagrame :
 </p>
 </details>
 
-- <details><summary>The architecture folders </summary>
-
+# The architecture folders 
 <p>
+<ul>
+  <li> lib<br>-->src<br>
+       -->main</li>
+      <li>src<br>--->app<br>--->features</li>
+     <li> app<br>-->config<br>-->core<br> -->app.dart<br> -->injector</li>
+     <li> config<br>--->routes<br>--->theme</li>
+     <li> features<br>--->auth<ul> -----------------
+      <li>auth<br>---->data<br>---->domain<br>---->presentation</li>
+     <ul><li> data<br>--->models<br>--->repositories<br>--->sources</li>
+     <li> sources<br>-->local<br>-->remote</li>
+     <li> domain<br>--->entities<br>--->reposetories<br>--->usecases</li>
+     <li> presentation<br>---->cubit<br>---->views<br>---->widgets</li>
+        <li>cubit<br>-->cubit.dart<br>-->state.dart</li></ul>
+        </ul> <br>--->booking<ul> -----------------
+      <li>booking<br>---->data<br>---->domain<br>---->presentation</li>
+     <ul><li> data<br>--->models<br>--->repositories<br>--->sources</li>
+     <li> sources<br>-->local<br>-->remote</li>
+     <li> domain<br>--->entities<br>--->reposetories<br>--->usecases</li>
+     <li> presentation<br>---->cubit<br>---->views<br>---->widgets</li>
+        <li>cubit<br>-->cubit.dart<br>-->state.dart</li></ul>
+        </ul> <br> --->splash<ul> -----------------
+      <li>splash<br>---->data<br>---->domain<br>---->presentation</li>
+     <ul><li> data<br>--->models<br>--->repositories<br>--->sources</li>
+     <li> sources<br>-->local<br>-->remote</li>
+     <li> domain<br>--->entities<br>--->reposetories<br>--->usecases</li>
+     <li> presentation<br>---->cubit<br>---->views<br>---->widgets</li>
+        <li>cubit<br>-->cubit.dart<br>-->state.dart</li></ul>
+        </ul> </li>
+   -
+   
+</ul>
+ 
 
-</p>
-</details>
 
+# Architecture Flow diagrame :
 
-
-=======
 ```mermaid
 graph TD;
     lib-->src;
@@ -94,4 +122,4 @@ graph TD;
     
      
 ```
->>>>>>> 0543b476d6fc164ba0584d9579224ee7bf2e3bd6
+
