@@ -127,3 +127,19 @@ graph TD;
    
 </ul>
 </details>
+
+## How to handle common things between features 
+
+lib/
+  |- core/
+  |  |- components/
+  |  |  |  |- presentation/
+  |  |  |  |  |- loading_widget.dart
+  |  |  |  |  |- failure_widget.dart
+  |  |  |  |- data/
+  |  |  |  |  |-
+  |  |  |  |  |- 
+  |  |  |  |- data_sources/
+  |  |  |  |  |-
+  |  |  |  |  |- 
+
