@@ -1,16 +1,25 @@
 # booking_app
 
-A new Flutter project.
+## features
 
-## Getting Started
+## Architecture
 
-This project is a starting point for a Flutter application.
+- <details><summary>Resource for Architecture </summary>
+   - <a href="https://devmuaz.medium.com/flutter-clean-architecture-series-part-1-d2d4c2e75c47" > clean architecture article</a>
+  
+  -
 
-A few resources to get you started if this is your first Flutter project:
+<p>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+</p>
+</details>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- <details><summary>The architecture folders </summary>
+
+<p>
+
+</p>
+</details>
+
+
+
