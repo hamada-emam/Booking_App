@@ -2,7 +2,7 @@
 //     "status": {
 //         "type": "1",
 //         "title": {
-//             "ar": "تم تسجيل الدخول بنجاح",
+//             "ar": "تم  تسجيل الدخول بنجاح",
 //             "en": "signed in successfuly"
 //         }
 //     },
@@ -19,4 +19,5 @@
 //         "google_id": null,
 //         "provider": null
 //     }
+
 // }
