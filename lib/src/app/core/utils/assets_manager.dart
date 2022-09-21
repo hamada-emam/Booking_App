@@ -6,4 +6,5 @@ class AssetsManager {
     "assets/images/onboarding3.png",
   ];
   static const String hotelLogo = "assets/images/hotel_logo.png";
+  static const String hotelImage = "assets/images/hotel.jpg";
 }

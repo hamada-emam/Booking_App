@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 /**
  * 
  
@@ -19,3 +21,5 @@ components/
 
 
  */
+
+Color mainAppColor = const Color(0xff50bd9e);
