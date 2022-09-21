@@ -37,10 +37,18 @@ class GetStarted extends StatelessWidget {
               style: getCaptionStyle(fontSize: FontSize.s14),
             ),
             const Spacer(),
+
             MainButton(
               txt: "Get started",
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.onboarding);
+              },
+            ),
+            const SizedBox(height: 20,),
+            MainButton(
+              txt: "Explore",
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.exploreHotels);
               },
             ),
             Center(
