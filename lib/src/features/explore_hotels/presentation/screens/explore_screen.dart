@@ -121,14 +121,12 @@ class ExploreScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Row(
               children: [
-                const Text("530 Hotel found"),
-                const Spacer(),
+                const Expanded(child: Text("530 Hotel found")),
                 const Text("Filter"),
                 const SizedBox(width: 5,),
                 InkWell(
                   onTap: (){
                     Navigator.of(context).pushNamed(Routes.filter);
-
                   },
                   child: const Icon(
                     Icons.filter_list,

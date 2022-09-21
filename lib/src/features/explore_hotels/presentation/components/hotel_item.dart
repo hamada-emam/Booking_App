@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../app/config/routes/routes.dart';
 import '../../../../app/core/core.dart';
 import '../../../../app/core/utils/assets_manager.dart';
 
@@ -11,7 +12,9 @@ class HotelItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          Navigator.of(context).pushNamed(Routes.booking);
+        },
         child: Card(
           elevation: 5,
           clipBehavior: Clip.hardEdge,
