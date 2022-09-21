@@ -13,5 +13,4 @@
 11- git push origin {your_branch_name} (push on your branch)
 12- go to your repo and make the pull request
 13- repeat from point 6
-last try tany
  */
