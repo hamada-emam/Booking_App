@@ -2,7 +2,7 @@ import 'package:booking_app/src/features/auth/presentation/views/login_page.dart
 import 'package:booking_app/src/features/auth/presentation/views/signup.dart';
 import 'package:booking_app/src/features/booking/presentation/screens/booking_screen.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/explore_screen.dart';
-import 'package:booking_app/src/features/explore_hotels/presentation/screens/filter_screen.dart';
+import 'package:booking_app/src/features/filter/presentation/screens/filter_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/get_started_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +24,7 @@ class Routes {
       login: (context) => const LoginScreen(),
       signup: (context) => const SignupScreen(),
       exploreHotels: (context) => ExploreScreen(),
-      filter: (context) => const FilterScreen(),
+      filter: (context) => FilterScreen(),
       booking: (context) => const BookingScreen(),
     };
   }

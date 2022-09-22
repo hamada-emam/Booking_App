@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: IconThemeData(size: 30, color: mainAppColor),
         scaffoldBackgroundColor: Colors.white,
+        sliderTheme: SliderThemeData(
+          showValueIndicator: ShowValueIndicator.always,
+        ),
         primarySwatch: Colors.blue,
       ),
       routes: Routes.routes,
