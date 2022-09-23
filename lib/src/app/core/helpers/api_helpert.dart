@@ -1,51 +1,158 @@
+import 'package:booking_app/src/app/core/components/data/end_points.dart';
+import 'package:booking_app/src/app/core/exceptions/network_exception.dart';
 import 'package:dio/dio.dart';
-//not Ready yet
-class ApiHelper {//!  implemented Later 
-  static late Dio dio;
-  static init() {
-    dio = Dio(BaseOptions(
-        baseUrl: "",
-        receiveDataWhenStatusError: true,
-        headers: {"Content-Type": "application/json"}));
+import 'package:flutter/material.dart';
+
+
+abstract class DioHelper {
+  Future<dynamic> post({
+    String? base,
+    required String endPoint,
+    dynamic data,
+    dynamic query,
+    String? token,
+    ProgressCallback? progressCallback,
+    
+    CancelToken? cancelToken,
+    int? timeOut,
+    bool isMultipart = false,
+  });
+
+  Future<dynamic> get({
+    String? base,
+    required String endPoint,
+    dynamic data,
+    dynamic query,
+    String? token,
+    CancelToken? cancelToken,
+    int? timeOut,
+    bool isMultipart = false,
+  });
+}
+
+class DioImpl extends DioHelper {
+  final Dio dio = Dio(
+    BaseOptions(
+      baseUrl: '$baseApiUrl$version',
+      receiveDataWhenStatusError: true,
+      connectTimeout: 5000,
+    ),
+  );
+
+  @override
+  Future<dynamic> get({
+    String? base,
+    required String endPoint,
+    dynamic data,
+    dynamic query,
+    String? token,
+    CancelToken? cancelToken,
+    int? timeOut,
+    bool isMultipart = false,
+  }) async {
+    if (timeOut != null) {
+      dio.options.connectTimeout = timeOut;
+    }
+
+    dio.options.headers = {
+      if (isMultipart) 'Content-Type': 'multipart/form-data',
+      if (!isMultipart) 'Content-Type': 'application/json',
+      if (!isMultipart) 'Accept': 'application/json',
+      if (token != null) 'token': token,
+    };
+
+    debugPrint('URL => ${dio.options.baseUrl + endPoint}');
+    debugPrint('Header => ${dio.options.headers.toString()}');
+    debugPrint('Body => $data');
+    debugPrint('Query => $query');
+
+    return await request(
+      call: () async => await dio.get(
+        endPoint,
+        queryParameters: query,
+        cancelToken: cancelToken,
+      ),
+    );
   }
 
-  static Future<Response> getData(
-      {required String url,
-      required Map<String, dynamic> quire,
-      required String token,
-      String lang = "en"}) async {
+  @override
+  Future<dynamic> post({
+    String? base,
+    required String endPoint,
+    dynamic data,
+    dynamic query,
+    String? token,
+    ProgressCallback? progressCallback,
+    CancelToken? cancelToken,
+    int? timeOut,
+    bool isMultipart = false,
+  }) async {
+    if (timeOut != null) {
+      dio.options.connectTimeout = timeOut;
+    }
+
     dio.options.headers = {
-      "Authorization": token,
-      "Content-Type": "application/json",
-      "lang": lang
+      if (isMultipart) 'Content-Type': 'multipart/form-data',
+      if (!isMultipart) 'Content-Type': 'application/json',
+      if (!isMultipart) 'Accept': 'application/json',
+      if (token != null) 'token': token,
     };
-    return await dio.get(url, queryParameters: quire);
+
+    debugPrint('URL => ${dio.options.baseUrl + endPoint}');
+    debugPrint('Header => ${dio.options.headers.toString()}');
+    debugPrint('Body => $data');
+    debugPrint('Query => $query');
+
+    return await request(
+      call: () async => await dio.post(
+        endPoint,
+        data: data,
+        queryParameters: query,
+        onSendProgress: progressCallback,
+        cancelToken: cancelToken,
+      ),
+    );
   }
+}
 
-  static Future<Response> postData(
-      {required String url,
-      required Map<String, dynamic> query,
-      required Map<String, dynamic> data,
-      String? tokken}) async {
-    dio.options.headers = {
-      "Authorization": tokken,
-      "lang": "en",
-      "Content-Type": "application/json"
-    };
-    return dio.post(url, data: data);
-  }
+extension on DioHelper {
+  Future request({
+    required Future<Response> Function() call,
+  }) async {
+    try {
+      final r = await call.call();
+      debugPrint("Response_Data => ${r.data}");
+      debugPrint("Response_Code => ${r.statusCode}");
 
+      if(r.data['status']['type'] == '0') {
+        dynamic title = r.data['status']['title'];
 
-  static Future<Response> putData(
-      {required String url,
-      required Map<String, dynamic> query,
-      required Map<String, dynamic> data,
-      String? tokken}) async {
-    dio.options.headers = {
-      "Authorization": tokken,
-      "lang": "en",
-      "Content-Type": "application/json"
-    };
-    return dio.put(url, data: data);
+        throw PrimaryServerException(
+          message: title is String ? title : r.data['status']['title']['ar'],
+          code: r.statusCode ?? 500,
+          error: title is String ? title : r.data['status']['title']['en'],
+        );
+      }
+
+      return r.data;
+    } on DioError catch (e) {
+      debugPrint("Error_Message => ${e.message}");
+      debugPrint("Error_Error => ${e.error.toString()}");
+      debugPrint("Error_Type => ${e.type.toString()}");
+
+      throw PrimaryServerException(
+        code: 100,
+        error: 'error message',
+        message: 'message Hello from primary exception',
+      );
+    } catch (e) {
+      PrimaryServerException exception = e as PrimaryServerException;
+
+      throw PrimaryServerException(
+        code: exception.code,
+        error: exception.error,
+        message: exception.message,
+      );
+    }
   }
 }
