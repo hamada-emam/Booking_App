@@ -1,11 +1,12 @@
+import 'package:booking_app/src/app/core/utils/assets_manager.dart';
+import 'package:booking_app/src/features/booking/presentation/screens/booking_screen.dart';
+import 'package:booking_app/src/features/explore_hotels/data/models/hotels_data_model.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../app/config/routes/routes.dart';
 import '../../../../app/core/core.dart';
-import '../../../../app/core/utils/assets_manager.dart';
 
 class HotelItem extends StatelessWidget {
-  const HotelItem({Key? key}) : super(key: key);
+  final HotelData hotelData;
+  const HotelItem({Key? key, required this.hotelData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class HotelItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: InkWell(
         onTap: (){
-          Navigator.of(context).pushNamed(Routes.booking);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => BookingScreen(hotelData: hotelData)));
         },
         child: Card(
           elevation: 5,
@@ -26,7 +27,15 @@ class HotelItem extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Image.asset(
+                  hotelData.hotelImages!.isNotEmpty?
+                  Image.network(
+                    'http://api.mahmoudtaha.com/images/${hotelData.hotelImages![0].image}',
+                    height: 210,
+                    // width: 380,
+                    fit: BoxFit.cover,
+                    // height: 50,
+                  )
+                  : Image.asset(
                     AssetsManager.hotelImage,
                     height: 210,
                     // width: 380,
@@ -59,7 +68,7 @@ class HotelItem extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "Grand Royal Hotel",
+                            "${hotelData.name}",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
@@ -68,7 +77,7 @@ class HotelItem extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "\$180",
+                          "\$${hotelData.price}",
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
@@ -79,7 +88,7 @@ class HotelItem extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Wembley, London",
+                          "${hotelData.address}",
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -113,31 +122,31 @@ class HotelItem extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star_rate_sharp,
                           size: 20,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star_rate_sharp,
                           size: 20,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star_rate_sharp,
                           size: 20,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star_rate_sharp,
                           size: 20,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star_rate_sharp,
                           size: 20,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "80 Reviews",
+                          "${hotelData.rate}",
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!

@@ -15,7 +15,7 @@ class Routes {
   static const String signup = '/signup';
   static const String exploreHotels = '/explore_hotels';
   static const String filter = '/filter';
-  static const String booking = '/booking';
+  // static const String booking = '/booking';
 
   static Map<String, WidgetBuilder> get routes {
     return {
@@ -25,7 +25,7 @@ class Routes {
       signup: (context) => const SignupScreen(),
       exploreHotels: (context) => ExploreScreen(),
       filter: (context) => FilterScreen(),
-      booking: (context) => const BookingScreen(),
+      // booking: (context) => BookingScreen(),
     };
   }
 }

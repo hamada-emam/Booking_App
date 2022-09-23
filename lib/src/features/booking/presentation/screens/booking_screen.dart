@@ -1,8 +1,10 @@
 import 'package:booking_app/src/features/booking/presentation/components/room_details.dart';
+import 'package:booking_app/src/features/explore_hotels/data/models/hotels_data_model.dart';
 import 'package:flutter/material.dart';
 
 class BookingScreen extends StatelessWidget {
-  const BookingScreen({Key? key}) : super(key: key);
+  final HotelData hotelData;
+  const BookingScreen({Key? key, required this.hotelData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +12,7 @@ class BookingScreen extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 60,
         title: Text(
-          "Grand Royal Hotel",
+          "${hotelData.name}",
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -33,7 +35,7 @@ class BookingScreen extends StatelessWidget {
             RoomDetails(roomType: 'Premium Room', pricePerNight: 200),
             RoomDetails(roomType: 'Queen Room', pricePerNight: 240),
             RoomDetails(roomType: 'King Room', pricePerNight: 240),
-            RoomDetails(roomType: 'Hollywood Twin Room Hamza Mhmoud', pricePerNight: 260),
+            RoomDetails(roomType: 'Hollywood Twin Room', pricePerNight: 260),
           ],
         ),
       ),
