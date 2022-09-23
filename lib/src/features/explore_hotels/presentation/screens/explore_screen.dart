@@ -1,9 +1,12 @@
 import 'package:booking_app/src/app/core/components/text_form_fields/search_form_field.dart';
 import 'package:booking_app/src/app/core/core.dart';
-import 'package:booking_app/src/features/explore_hotels/presentation/components/hotel_item.dart';
+import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
+import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
+import 'package:booking_app/src/features/explore_hotels/presentation/screens/hotels_result_screen.dart';
+import 'package:booking_app/src/features/explore_hotels/presentation/screens/map_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../app/config/routes/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({Key? key}) : super(key: key);
@@ -12,6 +15,9 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var exploreCubit = ExploreCubit.get(context);
+    exploreCubit.getAllHotels();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -24,16 +30,29 @@ class ExploreScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
+            splashRadius: 20,
             onPressed: () {},
             icon: const Icon(
               Icons.favorite_border,
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.map_outlined,
-            ),
+          BlocConsumer<ExploreCubit, ExploreStates>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return IconButton(
+                splashRadius: 20,
+                onPressed: () {
+                  exploreCubit.changeScreen();
+                },
+                icon: exploreCubit.isMapScreen
+                    ? const Icon(
+                        Icons.filter_list,
+                      )
+                    : const Icon(
+                        Icons.map_outlined,
+                      ),
+              );
+            },
           ),
         ],
       ),
@@ -71,18 +90,33 @@ class ExploreScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Choose date",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("21, Sep - 26, Sep"),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          exploreCubit.pickDateRange(context);
+
+                        },
+                        child: BlocConsumer<ExploreCubit, ExploreStates>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Choose date",
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                exploreCubit.dateRange != null
+                                    ? Text(
+                                        "${DateFormat.MMMd().format(exploreCubit.dateRange!.start)} - ${DateFormat.MMMd().format(exploreCubit.dateRange!.end)}")
+                                    : Text(
+                                        "${DateFormat.MMMd().format(DateTime.now())} - ${DateFormat.MMMd().format(DateTime.now().add(const Duration(days: 1)))}"),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                     Container(
@@ -117,34 +151,18 @@ class ExploreScreen extends StatelessWidget {
             height: 30,
             thickness: 1,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Row(
-              children: [
-                const Expanded(child: Text("530 Hotel found")),
-                const Text("Filter"),
-                const SizedBox(width: 5,),
-                InkWell(
-                  onTap: (){
-                    Navigator.of(context).pushNamed(Routes.filter);
-                  },
-                  child: const Icon(
-                    Icons.filter_list,
-                  ),
-                ),
-              ],
-            ),
+          BlocConsumer<ExploreCubit, ExploreStates>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Expanded(
+                child: exploreCubit.isMapScreen
+                    ? MapScreen(
+                        locationName: searchController.text,
+                      )
+                    : const HotelsResultScreen(),
+              );
+            },
           ),
-          const SizedBox(height: 10,),
-          Expanded(
-            child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => const HotelItem(),
-                separatorBuilder: (context, index) => const SizedBox(height: 25,),
-                itemCount: 10,
-            ),
-          ),
-          
         ],
       ),
     );

@@ -4,6 +4,34 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 
+
+//not Ready yet
+class ApiHelper {
+  //!  implemented Later
+  static late Dio dio;
+
+  static init() {
+    dio = Dio(BaseOptions(
+        baseUrl: "http://api.mahmoudtaha.com",
+        receiveDataWhenStatusError: true,
+        headers: {"Content-Type": "application/json"}));
+  }
+
+  static Future<Response> getData({
+    required String url,
+    String? token,
+    Map<String, dynamic>? query,
+    String lang = "en",
+  }) async {
+    dio.options.headers = {
+      "Authorization": token,
+      "Content-Type": "application/json",
+      "lang": lang
+    };
+    return await dio.get(url, queryParameters: query);
+  }
+
+
 abstract class DioHelper {
   Future<dynamic> post({
     String? base,
