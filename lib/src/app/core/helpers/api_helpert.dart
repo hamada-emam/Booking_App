@@ -5,33 +5,6 @@ import 'package:flutter/material.dart';
 
 
 
-//not Ready yet
-class ApiHelper {
-  //!  implemented Later
-  static late Dio dio;
-
-  static init() {
-    dio = Dio(BaseOptions(
-        baseUrl: "http://api.mahmoudtaha.com",
-        receiveDataWhenStatusError: true,
-        headers: {"Content-Type": "application/json"}));
-  }
-
-  static Future<Response> getData({
-    required String url,
-    String? token,
-    Map<String, dynamic>? query,
-    String lang = "en",
-  }) async {
-    dio.options.headers = {
-      "Authorization": token,
-      "Content-Type": "application/json",
-      "lang": lang
-    };
-    return await dio.get(url, queryParameters: query);
-  }
-
-
 abstract class DioHelper {
   Future<dynamic> post({
     String? base,
@@ -40,7 +13,6 @@ abstract class DioHelper {
     dynamic query,
     String? token,
     ProgressCallback? progressCallback,
-    
     CancelToken? cancelToken,
     int? timeOut,
     bool isMultipart = false,
@@ -152,7 +124,7 @@ extension on DioHelper {
       debugPrint("Response_Data => ${r.data}");
       debugPrint("Response_Code => ${r.statusCode}");
 
-      if(r.data['status']['type'] == '0') {
+      if (r.data['status']['type'] == '0') {
         dynamic title = r.data['status']['title'];
 
         throw PrimaryServerException(

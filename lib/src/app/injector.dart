@@ -1,5 +1,6 @@
 import 'package:booking_app/src/app/core/helpers/api_helpert.dart';
 import 'package:booking_app/src/features/auth/data/repo/login_data_source.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

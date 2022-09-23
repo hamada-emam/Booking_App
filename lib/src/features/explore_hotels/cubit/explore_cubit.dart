@@ -1,5 +1,6 @@
 import 'package:booking_app/src/app/core/core.dart';
 import 'package:booking_app/src/app/core/helpers/api_helpert.dart';
+import 'package:booking_app/src/app/injector.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
 import 'package:booking_app/src/features/explore_hotels/data/models/hotels_data_model.dart';
 import 'package:dio/dio.dart';
@@ -22,8 +23,9 @@ class ExploreCubit extends Cubit<ExploreStates> {
 
   Future<void> getAllHotels({String? token}) async {
     try {
-      Response value = await ApiHelper.getData(
-        url: '/api/hotels/',
+      DioHelper apiHelper = sl<DioHelper>();
+      Response value = await apiHelper.get(
+        endPoint: '/api/hotels/',
         token: token,
       );
       // showToastMessage(message: "${value.data['message']}");
@@ -61,9 +63,8 @@ class ExploreCubit extends Cubit<ExploreStates> {
           data: ThemeData.light().copyWith(
             primaryColor: mainAppColor,
             colorScheme: ColorScheme.light(primary: mainAppColor),
-            buttonTheme: const ButtonThemeData(
-                textTheme: ButtonTextTheme.primary
-            ),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: Column(
             children: [
