@@ -15,6 +15,7 @@ class GetStarted extends StatelessWidget {
     MediaQueryManager().init(context);
     return Scaffold(
       body: ShadedBackGround(
+        isDark: false, //default Light Mode
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -52,9 +53,11 @@ class GetStarted extends StatelessWidget {
                 Navigator.of(context).pushNamed(Routes.exploreHotels);
               },
             ),
-            OrWidget(onTap: () {
-              Navigator.pushNamed(context, Routes.login);
-            }),
+            OrWidget(
+                isDark: true,
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.login);
+                }),
           ],
         ),
       ),
@@ -64,8 +67,11 @@ class GetStarted extends StatelessWidget {
 
 class ShadedBackGround extends StatelessWidget {
   final Widget child;
+  final bool isDark;
+
   const ShadedBackGround({
     required this.child,
+    required this.isDark,
     Key? key,
   }) : super(key: key);
 
@@ -74,8 +80,10 @@ class ShadedBackGround extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                colorFilter: ColorFilter.mode(
-                    Colors.grey.shade700.withOpacity(0.7), BlendMode.darken),
+                colorFilter: isDark
+                    ? ColorFilter.mode(
+                        Colors.grey.shade700.withOpacity(0.7), BlendMode.darken)
+                    : null,
                 image: const AssetImage(AssetsManager.getStartedImage),
                 fit: BoxFit.fill)),
         child: child);

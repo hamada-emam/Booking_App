@@ -75,7 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoadingAuthState());
 
     final response = await repository.getProfile(
-      token: userModel!.data!.token,
+      token: CashHelper.getData("token")
     );
 
     response.fold(

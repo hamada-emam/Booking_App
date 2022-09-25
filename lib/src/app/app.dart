@@ -1,4 +1,5 @@
 import 'package:booking_app/src/app/config/routes/routes.dart';
+import 'package:booking_app/src/app/config/themes/app_theme.dart';
 import 'package:booking_app/src/app/core/core.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:flutter/material.dart';
@@ -20,17 +21,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Motel',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            color: Colors.white,
-            elevation: 0,
-            toolbarHeight: 90,
-            iconTheme: IconThemeData(color: Colors.black),
-          ),
-          iconTheme: IconThemeData(size: 30, color: mainAppColor),
-          scaffoldBackgroundColor: Colors.white,
-          primarySwatch: Colors.blue,
-        ),
+        darkTheme: AppTheme.darkTheme,
+        theme: AppTheme.lightTheme,
+        themeMode: AppTheme.themeMode,
         routes: Routes.routes,
         initialRoute: token == null ? Routes.getStarted : Routes.home,
       ),
