@@ -19,24 +19,12 @@ class HotelsResultScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Row(
             children: [
-              const Expanded(child: Text("530 Hotel found")),
-              const Text("Filter"),
-              const SizedBox(
-                width: 5,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed(Routes.filter);
-                },
-                child: const Icon(
-                  Icons.filter_list,
-                ),
-              ),
+              // Text("${exploreCubit.allHotelsData!.data!.length} Hotels found"),
             ],
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         BlocConsumer<ExploreCubit, ExploreStates>(
           listener: (context, state) {},

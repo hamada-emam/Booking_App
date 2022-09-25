@@ -1,4 +1,4 @@
-import 'package:booking_app/src/app/core/components/text_form_fields/search_form_field.dart';
+import 'package:booking_app/src/app/core/components/text_form_fields/app_textform_field.dart';
 import 'package:booking_app/src/app/core/core.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../app/config/routes/routes.dart';
+
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({Key? key}) : super(key: key);
-
-  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,16 +65,18 @@ class ExploreScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: SearchTextFormField(
+                      child: AppTextFormField(
+                        controller: exploreCubit.searchController,
                         hintText: 'Search',
-                        controller: searchController,
                       ),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     FloatingActionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.search);
+                      },
                       elevation: 3,
                       backgroundColor: mainAppColor,
                       child: const Icon(
@@ -93,7 +95,6 @@ class ExploreScreen extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           exploreCubit.pickDateRange(context);
-
                         },
                         child: BlocConsumer<ExploreCubit, ExploreStates>(
                           listener: (context, state) {},
@@ -151,15 +152,49 @@ class ExploreScreen extends StatelessWidget {
             height: 30,
             thickness: 1,
           ),
+
           BlocConsumer<ExploreCubit, ExploreStates>(
             listener: (context, state) {},
             builder: (context, state) {
               return Expanded(
-                child: exploreCubit.isMapScreen
-                    ? MapScreen(
-                        locationName: searchController.text,
-                      )
-                    : const HotelsResultScreen(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              exploreCubit.allHotelsData != null ?
+                              "All Hotels (${exploreCubit.allHotelsData!.data!.length})"
+                                  :"Please wait..."
+                              ,
+                            ),
+                          ),
+                          const Text("Filter"),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(Routes.filter);
+                            },
+                            child: const Icon(
+                              Icons.filter_list,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: exploreCubit.isMapScreen
+                          ? MapScreen(
+                              locationName: exploreCubit.searchController.text,
+                            )
+                          : const HotelsResultScreen(),
+                    ),
+                  ],
+                ),
               );
             },
           ),

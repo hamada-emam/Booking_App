@@ -1,4 +1,5 @@
 import 'package:booking_app/src/app/core/core.dart';
+import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:flutter/material.dart';
 
 class MyRangeSlider extends StatefulWidget {
@@ -9,23 +10,23 @@ class MyRangeSlider extends StatefulWidget {
 }
 
 class _MyRangeSliderState extends State<MyRangeSlider> {
-  var selectedRange = const RangeValues(10, 1000);
 
   @override
   Widget build(BuildContext context) {
+    var exploreCubit = ExploreCubit.get(context);
     return RangeSlider(
       activeColor: mainAppColor,
       inactiveColor: mainGreyColor,
-      values: selectedRange,
+      values: exploreCubit.selectedPriceRange,
       onChanged: (RangeValues newRange) {
         setState(() {
-          selectedRange = newRange;
+          exploreCubit.selectedPriceRange = newRange;
         });
       },
       min: 0,
-      max: 1000,
-      labels: RangeLabels('\$${selectedRange.start}', '\$${selectedRange.end}'),
-      divisions: 20,
+      max: 6000,
+      labels: RangeLabels('\$${exploreCubit.selectedPriceRange.start}', '\$${exploreCubit.selectedPriceRange.end}'),
+      divisions: 60,
     );
   }
 }

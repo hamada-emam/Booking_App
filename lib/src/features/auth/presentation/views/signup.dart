@@ -146,7 +146,7 @@ class SignupScreen extends StatelessWidget {
                         BlocConsumer<AuthCubit, AuthState>(
                           listener: (context, state) {
                             if (state is SuccessAuthState) {
-                              Navigator.pushNamed(context, Routes.filter);
+                              Navigator.pushNamed(context, Routes.exploreHotels);
                             }
                           },
                           builder: (context, state) {

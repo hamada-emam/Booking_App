@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: Routes.routes,
-        initialRoute: token == null ? Routes.getStarted : Routes.filter,
+        initialRoute: token == null ? Routes.getStarted : Routes.exploreHotels,
       ),
     );
   }
