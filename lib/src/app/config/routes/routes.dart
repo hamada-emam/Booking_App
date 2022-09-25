@@ -5,6 +5,7 @@ import 'package:booking_app/src/features/explore_hotels/presentation/screens/exp
 import 'package:booking_app/src/features/filter/presentation/screens/filter_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/get_started_screen.dart';
+import 'package:booking_app/src/features/search/presentation/screens/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 class Routes {
@@ -15,6 +16,7 @@ class Routes {
   static const String signup = '/signup';
   static const String exploreHotels = '/explore_hotels';
   static const String filter = '/filter';
+  static const String search = '/search';
   // static const String booking = '/booking';
 
   static Map<String, WidgetBuilder> get routes {
@@ -25,6 +27,7 @@ class Routes {
       signup: (context) =>  SignupScreen(),
       exploreHotels: (context) => ExploreScreen(),
       filter: (context) => FilterScreen(),
+      search: (context) => SearchScreen(),
       // booking: (context) => BookingScreen(),
     };
   }

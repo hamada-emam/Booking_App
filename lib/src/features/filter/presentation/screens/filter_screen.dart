@@ -1,5 +1,7 @@
+import 'package:booking_app/src/app/config/routes/routes.dart';
 import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
 import 'package:booking_app/src/app/core/core.dart';
+import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/filter/presentation/components/my_checkbox.dart';
 import 'package:booking_app/src/features/filter/presentation/components/my_range_slider.dart';
 import 'package:booking_app/src/features/filter/presentation/components/my_slider.dart';
@@ -19,18 +21,23 @@ class FilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var exploreCubit = ExploreCubit.get(context);
     return Scaffold(
       bottomSheet: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey[200]!)
-        ),
-
+            color: Colors.white, border: Border.all(color: Colors.grey[200]!)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
             width: double.infinity,
-            child: MainButton(onPressed: () {}, txt: 'Apply'),
+            child: MainButton(
+              onPressed: () {
+                print("${exploreCubit.selectedPriceRange.start is int}");
+                print("${exploreCubit.selectedPriceRange.end}");
+                Navigator.pushNamed(context, Routes.search);
+              },
+              txt: 'Apply',
+            ),
           ),
         ),
       ),

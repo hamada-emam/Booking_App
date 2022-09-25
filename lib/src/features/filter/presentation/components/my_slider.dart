@@ -1,4 +1,5 @@
 import 'package:booking_app/src/app/core/core.dart';
+import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:flutter/material.dart';
 
 class MySlider extends StatefulWidget {
@@ -9,22 +10,22 @@ class MySlider extends StatefulWidget {
 }
 
 class _MySliderState extends State<MySlider> {
-  double currentValue = 5;
 
   @override
   Widget build(BuildContext context) {
+    var exploreCubit = ExploreCubit.get(context);
     return Slider(
       activeColor: mainAppColor,
         inactiveColor: mainGreyColor,
-        value: currentValue,
+        value: exploreCubit.currentDistanceValue,
         onChanged: (newValue) {
           setState(() {
-            currentValue = newValue;
+            exploreCubit.currentDistanceValue = newValue;
           });
         },
       min: 1,
       max: 10,
-      label: 'Less than $currentValue Km',
+      label: 'Less than ${exploreCubit.currentDistanceValue} Km',
       divisions: 9,
     );
   }

@@ -13,6 +13,8 @@ class ExploreCubit extends Cubit<ExploreStates> {
   static ExploreCubit get(context) => BlocProvider.of(context);
 
   bool isMapScreen = false;
+  TextEditingController searchController = TextEditingController();
+
 
   void changeScreen() {
     isMapScreen = !isMapScreen;
@@ -20,16 +22,17 @@ class ExploreCubit extends Cubit<ExploreStates> {
   }
 
   AllHotelsData? allHotelsData;
+  AllHotelsData? searchHotelsData;
 
   Future<void> getAllHotels({String? token}) async {
     try {
       DioHelper apiHelper = sl<DioHelper>();
-      Response value = await apiHelper.get(
-        endPoint: '/api/hotels/',
+      var value = await apiHelper.get(
+        endPoint: '/hotels/',
         token: token,
       );
       // showToastMessage(message: "${value.data['message']}");
-      allHotelsData = AllHotelsData.fromJson(value.data);
+      allHotelsData = AllHotelsData.fromJson(value);
       debugPrint("-----------------------------------------------");
       debugPrint(allHotelsData!.data!.length.toString());
       debugPrint("-----------------------------------------------");
@@ -43,6 +46,34 @@ class ExploreCubit extends Cubit<ExploreStates> {
         // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
       }
       emit(FailedGetHotelsDataState());
+    }
+  }
+
+  Future<void> searchForHotels(
+      {String? token, required Map<String, dynamic> searchMap}) async {
+    emit(LoadingSearchState());
+    try {
+      DioHelper apiHelper = sl<DioHelper>();
+      var value = await apiHelper.get(
+        endPoint: '/search-hotels',
+        token: token,
+        query: searchMap,
+      );
+      // showToastMessage(message: "${value.data['message']}");
+      searchHotelsData = AllHotelsData.fromJson(value);
+      debugPrint("-----------------------------------------------");
+      debugPrint(searchHotelsData!.data!.length.toString());
+      debugPrint("-----------------------------------------------");
+
+      emit(SuccessSearchState());
+    } on DioError catch (e) {
+      if (e.response == null) {
+        // showToastMessage(message: "Check you connection", toastColor: Colors.red);
+      } else {
+        debugPrint(e.response!.data);
+        // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
+      }
+      emit(FailedSearchState());
     }
   }
 
@@ -90,4 +121,8 @@ class ExploreCubit extends Cubit<ExploreStates> {
     );
     emit(DateRangePickedState());
   }
+
+  //filter data
+  var selectedPriceRange = const RangeValues(10, 6000);
+  double currentDistanceValue = 5;
 }
