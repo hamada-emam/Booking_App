@@ -33,18 +33,21 @@ TextStyle getRegularStyle(
   return _getTextStyle(fontSize, FontWeightManager.regular, color);
 }
 
-// medium style
-
- TextStyle getCaptionStyle(
+TextStyle getCaptionStyle(
     {double fontSize = FontSize.s12,
-    Color color =ColorManager.lightGrey}) {
-  return  _getTextStyle(fontSize, FontWeightManager.medium, color);
+    Color color = ColorManager.lightGrey,
+    bool isDark = true}) {
+  if (!isDark) {
+    color = Colors.grey;
+  }
+  return _getTextStyle(fontSize, FontWeightManager.medium, color);
 }
 
 // medium style
 
 TextStyle getLightStyle(
     {double fontSize = FontSize.s12,
+    bool isDark = true,
     Color color = const Color.fromRGBO(255, 255, 255, 1)}) {
   return _getTextStyle(fontSize, FontWeightManager.light, color);
 }
@@ -53,7 +56,11 @@ TextStyle getLightStyle(
 
 TextStyle getBoldStyle(
     {double fontSize = FontSize.s12,
-    Color color = const Color.fromRGBO(255, 255, 255, 1)}) {
+    Color color = const Color.fromRGBO(255, 255, 255, 1),
+    bool isDark = false}) {
+  if (!isDark) {
+    color = Colors.black;
+  }
   return _getTextStyle(fontSize, FontWeightManager.bold, color);
 }
 
@@ -61,6 +68,7 @@ TextStyle getBoldStyle(
 
 TextStyle getSemiBoldStyle(
     {double fontSize = FontSize.s12,
-    Color color = const Color.fromRGBO(255, 255, 255, 1)}) {
+    Color color = const Color.fromRGBO(255, 255, 255, 1),
+    bool isDark = true}) {
   return _getTextStyle(fontSize, FontWeightManager.semiBold, color);
 }

@@ -3,22 +3,20 @@ import 'package:booking_app/src/features/home/presentation/control/home_cubit/cu
 import 'package:ezanimation/ezanimation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_animations/animation_builder/play_animation_builder.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("object");
     return BlocProvider(
       create: (context) => HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (previous, current) => current is ScreenChangedState,
         builder: (context, state) {
-          EzAnimation margin = EzAnimation(60.0, 0.0, Duration(seconds: 1));
+          EzAnimation margin =
+              EzAnimation(60.0, 0.0, const Duration(seconds: 1));
           margin.start();
-          print("scaaaaaaaaaaaa");
           return Scaffold(
             body: AnimatedBuilder(
                 animation: margin,
