@@ -3,8 +3,6 @@ import 'package:booking_app/src/app/core/exceptions/network_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-
-
 abstract class DioHelper {
   Future<dynamic> post({
     String? base,
@@ -143,7 +141,7 @@ extension on DioHelper {
       throw PrimaryServerException(
         code: 100,
         error: 'error message',
-        message: 'message Hello from primary exception',
+        message: "please check your connection",
       );
     } catch (e) {
       PrimaryServerException exception = e as PrimaryServerException;

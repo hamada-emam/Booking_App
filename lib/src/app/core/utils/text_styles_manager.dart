@@ -1,3 +1,4 @@
+import 'package:booking_app/src/app/core/utils/colors_manager.dart';
 import 'package:flutter/material.dart';
 
 class FontConstants {}
@@ -34,10 +35,10 @@ TextStyle getRegularStyle(
 
 // medium style
 
-TextStyle getCaptionStyle(
+ TextStyle getCaptionStyle(
     {double fontSize = FontSize.s12,
-    Color color = const Color.fromARGB(255, 218, 218, 218)}) {
-  return _getTextStyle(fontSize, FontWeightManager.medium, color);
+    Color color =ColorManager.lightGrey}) {
+  return  _getTextStyle(fontSize, FontWeightManager.medium, color);
 }
 
 // medium style

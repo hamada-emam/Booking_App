@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String? token;
+  const MyApp({super.key, required this.token});
 
   // This widget is the root of your application.
   @override
@@ -15,13 +16,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<ExploreCubit>(
           create: (context) => ExploreCubit(),
         ),
-
       ],
       child: MaterialApp(
         title: 'Motel',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-
           appBarTheme: const AppBarTheme(
             color: Colors.white,
             elevation: 0,
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: Routes.routes,
-        initialRoute: Routes.getStarted,
+        initialRoute: token == null ? Routes.getStarted : Routes.filter,
       ),
     );
   }

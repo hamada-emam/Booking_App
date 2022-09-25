@@ -39,7 +39,7 @@ class OnboardingItem extends StatelessWidget {
           onboradings[index].sub,
           textAlign: TextAlign.center,
           style: getCaptionStyle(
-              fontSize: FontSize.s14, color: ColorManager.darkGrey),
+              fontSize: FontSize.s14, color: ColorManager.lightGrey),
         ),
       ],
     );

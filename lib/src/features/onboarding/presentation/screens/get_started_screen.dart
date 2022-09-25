@@ -3,7 +3,7 @@ import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
 import 'package:booking_app/src/app/core/utils/assets_manager.dart';
 import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/app/core/utils/text_styles_manager.dart';
-import 'package:booking_app/src/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:booking_app/src/features/onboarding/presentation/screens/or_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -37,44 +37,24 @@ class GetStarted extends StatelessWidget {
               style: getCaptionStyle(fontSize: FontSize.s14),
             ),
             const Spacer(),
-
             MainButton(
               txt: "Get started",
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.onboarding);
               },
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             MainButton(
               txt: "Explore",
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.exploreHotels);
               },
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: "Already have an account ? ",
-                          style: getLightStyle(fontSize: FontSize.s14)),
-                      TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = (() {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OnboardingScreen(),
-                                  ));
-                            }),
-                          text: " Login",
-                          style: getLightStyle(fontSize: FontSize.s16)),
-                    ])),
-              ),
-            ),
+            OrWidget(onTap: () {
+              Navigator.pushNamed(context, Routes.login);
+            }),
           ],
         ),
       ),
