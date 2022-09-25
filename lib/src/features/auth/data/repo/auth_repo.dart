@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:booking_app/src/app/core/components/data/end_points.dart';
 import 'package:booking_app/src/app/core/exceptions/network_exception.dart';
@@ -5,23 +6,28 @@ import 'package:booking_app/src/app/core/helpers/api_helpert.dart';
 import 'package:booking_app/src/features/auth/data/models/login_model.dart';
 import 'package:booking_app/src/features/auth/data/models/profile_info_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-
-abstract class Repository {
+abstract class AuthRepository {
   Future<Either<PrimaryServerException, LoginModel>> login({
     required String email,
     required String password,
+  });
+  Future<Either<PrimaryServerException, LoginModel>> signUp({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required File image,
   });
 
   Future<Either<PrimaryServerException, ProfileModel>> getProfile({
     required String token,
   });
-
-
 }
 
-class RepositoryImplementation extends Repository {
+class RepositoryImplementation extends AuthRepository {
   final DioHelper dioHelper;
 
   RepositoryImplementation({
@@ -43,6 +49,36 @@ class RepositoryImplementation extends Repository {
       },
       onPrimaryServerException: (e) async {
         return e;
+      },
+    );
+  }
+
+  @override
+  Future<Either<PrimaryServerException, LoginModel>> signUp(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password,
+      required File image}) async {
+    return basicErrorHandling<LoginModel>(
+      onSuccess: () async {
+        var formData = FormData.fromMap({
+          "name": firstName,
+          "image": await MultipartFile.fromFile(image.path),
+          "email": email,
+          "password": password,
+          "last_name": lastName,
+          "password_confirmation": password
+        });
+
+        final  res = await dioHelper.post(
+            endPoint: registerEndPoint, isMultipart: true, data: formData);
+       
+       
+        return LoginModel.fromJson(res);
+      },
+      onPrimaryServerException: (exception) async {
+        return exception;
       },
     );
   }
@@ -71,7 +107,7 @@ class RepositoryImplementation extends Repository {
   }
 }
 
-extension on Repository {
+extension on AuthRepository {
   Future<Either<PrimaryServerException, T>> basicErrorHandling<T>({
     required Future<T> Function() onSuccess,
     Future<PrimaryServerException> Function(PrimaryServerException exception)?

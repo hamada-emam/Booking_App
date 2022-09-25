@@ -21,8 +21,8 @@ class Routes {
     return {
       getStarted: (context) => const GetStarted(),
       onboarding: (context) => const OnboardingScreen(),
-      login: (context) => const LoginScreen(),
-      signup: (context) => const SignupScreen(),
+      login: (context) =>  LoginScreen(),
+      signup: (context) =>  SignupScreen(),
       exploreHotels: (context) => ExploreScreen(),
       filter: (context) => FilterScreen(),
       // booking: (context) => BookingScreen(),

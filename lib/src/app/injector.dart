@@ -1,5 +1,6 @@
 import 'package:booking_app/src/app/core/helpers/api_helpert.dart';
-import 'package:booking_app/src/features/auth/data/repo/login_data_source.dart';
+import 'package:booking_app/src/features/auth/data/repo/auth_repo.dart';
+import 'package:booking_app/src/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -11,12 +12,16 @@ Future<void> init() async {
   // ));
 
   sl.registerLazySingleton<DioHelper>(
-        () => DioImpl(),
+    () => DioImpl(),
   );
 
-  sl.registerLazySingleton<Repository>(
-        () => RepositoryImplementation(
+  sl.registerLazySingleton<AuthRepository>(
+    () => RepositoryImplementation(
       dioHelper: sl(),
     ),
   );
+
+  sl.registerFactory(() => AuthCubit(
+        repository: sl<AuthRepository>(),
+      ));
 }
