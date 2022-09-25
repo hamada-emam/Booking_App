@@ -3,6 +3,7 @@ import 'package:booking_app/src/features/auth/presentation/views/signup.dart';
 import 'package:booking_app/src/features/booking/presentation/screens/booking_screen.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/explore_screen.dart';
 import 'package:booking_app/src/features/filter/presentation/screens/filter_screen.dart';
+import 'package:booking_app/src/features/home/home_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/get_started_screen.dart';
 import 'package:booking_app/src/features/search/presentation/screens/search_screen.dart';
@@ -25,6 +26,7 @@ class Routes {
       onboarding: (context) => const OnboardingScreen(),
       login: (context) =>  LoginScreen(),
       signup: (context) =>  SignupScreen(),
+      home:(context) => const HomeScreen(),
       exploreHotels: (context) => ExploreScreen(),
       filter: (context) => FilterScreen(),
       search: (context) => SearchScreen(),

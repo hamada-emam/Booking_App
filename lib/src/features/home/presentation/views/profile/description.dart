@@ -1,5 +1,15 @@
-// صلو ع النبي 
-// authكل فيتشر هيكون جواها نفس الاركيتيكتشر بتاع ال  
-// يعني نفس الفولدرز هي هي وطبعا الفايلز باسماءها بمحتواها هيتغير علي حسب الفيتشر 
-// الفايل ده مؤقت بس علشان نقدر نفهم الليله ماشيه ازاي 
-// 
+import 'package:flutter/material.dart';
+
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: Text("profile"),),
+    );
+  }
+}
