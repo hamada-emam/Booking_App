@@ -6,78 +6,118 @@ import '../../../data/models/all_hotels_data.dart';
 
 class FeatureItem extends StatelessWidget {
   final HotelAllData hotelData;
+
   const FeatureItem({Key? key, required this.hotelData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.fromLTRB(5, 0, 0, 5),
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: InkWell(
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => Details()));
-            },
-            child: Card(
-              elevation: 5,
-              clipBehavior: Clip.hardEdge,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  hotelData.hotelImages!.isNotEmpty
-                      ? Image.network(
-                          'http://api.mahmoudtaha.com/images/${hotelData.hotelImages![0].image}',
-                          height: 100,
-                          width: 120,
-                          // width: 380,
-                          fit: BoxFit.cover,
-                          // height: 50,
-                        )
-                      : Image.asset(
-                          AssetsManager.hotelImage,
-                          height: 100,
-                          width: 120,
-                          // width: 380,
-                          fit: BoxFit.cover,
-                          // height: 50,
-                        ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          "${hotelData.name}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .copyWith(color: Colors.grey, fontSize: 24),
-                        ),
-                        Row(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Details()));
+        },
+        child: Card(
+          elevation: 5,
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              hotelData.hotelImages!.isNotEmpty
+                  ? Image.network(
+                      'http://api.mahmoudtaha.com/images/${hotelData.hotelImages![0].image}',
+                      height: 150,
+                      width: 140,
+                      // width: 380,
+                      fit: BoxFit.cover,
+                      // height: 50,
+                    )
+                  : Image.asset(
+                      AssetsManager.hotelImage,
+                      height: 150,
+                      width: 140,
+                      // width: 380,
+                      fit: BoxFit.cover,
+                      // height: 50,
+                    ),
+              Expanded(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${hotelData.name}",
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "${hotelData.address}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            size: 15,
+                          ),
+                          Text(
+                            "2.0 km to city",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: Colors.grey),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Spacer(),
+                          Text(
+                            "\$${hotelData.price}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Row(
                           children: [
-                            Text(
-                              "${hotelData.address}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: Colors.grey),
+                            const Icon(
+                              Icons.star_rate_sharp,
+                              size: 20,
                             ),
                             const Icon(
-                              Icons.location_on,
-                              size: 15,
+                              Icons.star_rate_sharp,
+                              size: 20,
                             ),
-                            Text(
-                              "2.0 km to city",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: Colors.grey),
-                              overflow: TextOverflow.ellipsis,
+                            const Icon(
+                              Icons.star_rate_sharp,
+                              size: 20,
                             ),
+                            const Icon(
+                              Icons.star_rate_sharp,
+                              size: 20,
+                            ),
+                            const Icon(
+                              Icons.star_rate_sharp,
+                              size: 20,
+                            ),
+                            const Spacer(),
                             Text(
-                              "/per night",
+                              "/per day",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -85,51 +125,15 @@ class FeatureItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.star_rate_sharp,
-                                size: 20,
-                              ),
-                              const Icon(
-                                Icons.star_rate_sharp,
-                                size: 20,
-                              ),
-                              const Icon(
-                                Icons.star_rate_sharp,
-                                size: 20,
-                              ),
-                              const Icon(
-                                Icons.star_rate_sharp,
-                                size: 20,
-                              ),
-                              const Icon(
-                                Icons.star_rate_sharp,
-                                size: 20,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "${hotelData.rate}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )));
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

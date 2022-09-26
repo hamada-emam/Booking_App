@@ -26,7 +26,7 @@ class ExploreScreen extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline5!
-              .copyWith(fontWeight: FontWeight.w500, color: Colors.black),
+              .copyWith(fontWeight: FontWeight.w500,),
         ),
         centerTitle: true,
         actions: [
