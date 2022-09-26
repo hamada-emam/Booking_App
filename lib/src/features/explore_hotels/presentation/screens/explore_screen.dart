@@ -1,5 +1,6 @@
 import 'package:booking_app/src/app/core/components/text_form_fields/app_textform_field.dart';
 import 'package:booking_app/src/app/core/core.dart';
+import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
@@ -16,6 +17,7 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryManager().init(context);
     var exploreCubit = ExploreCubit.get(context);
     exploreCubit.getAllHotels();
 
@@ -155,7 +157,6 @@ class ExploreScreen extends StatelessWidget {
             height: 30,
             thickness: 1,
           ),
-
           BlocConsumer<ExploreCubit, ExploreStates>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -168,10 +169,9 @@ class ExploreScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              exploreCubit.allHotelsData != null ?
-                              "All Hotels (${exploreCubit.allHotelsData!.data!.length})"
-                                  :"Please wait..."
-                              ,
+                              exploreCubit.allHotelsData != null
+                                  ? "All Hotels (${exploreCubit.allHotelsData!.data!.length})"
+                                  : "Please wait...",
                             ),
                           ),
                           const Text("Filter"),
@@ -189,10 +189,37 @@ class ExploreScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    /////////////////////
                     Expanded(
                       child: exploreCubit.isMapScreen
-                          ? MapScreen(
-                              locationName: exploreCubit.searchController.text,
+                          ? Stack(
+                              children: [
+                                // !!!!!!!!!!!!!!!!!!!!!!!  uncomment this in need only
+                                // MapScreen(
+                                //   allHotelsData: exploreCubit.allHotelsData!,
+                                // ),
+                                //TODO : implement Horizontal List View
+                                Positioned(
+                                    bottom: 0,
+                                    child: Container(
+                                      width: MediaQueryManager.screenWidth,
+                                      height:
+                                          MediaQueryManager.screenHeight * 0.15,
+                                      child: ListView.builder(
+                                        itemCount: exploreCubit
+                                            .allHotelsData!.data?.length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) =>
+                                            Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          width: MediaQueryManager.screenWidth *
+                                              0.5,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ))
+                              ],
                             )
                           : const HotelsResultScreen(),
                     ),
