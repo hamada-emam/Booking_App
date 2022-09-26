@@ -1,8 +1,10 @@
 import 'package:booking_app/src/features/home/data/models/nav_bar_data.dart';
-import 'package:booking_app/src/features/home/presentation/control/home_cubit/cubit/home_cubit.dart';
+
 import 'package:ezanimation/ezanimation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../home_cubit/home_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
