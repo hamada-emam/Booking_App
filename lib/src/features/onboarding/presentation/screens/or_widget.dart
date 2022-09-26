@@ -26,7 +26,8 @@ class OrWidget extends StatelessWidget {
               TextSpan(
                   text: txt1,
                   style: isDark
-                      ? getCaptionStyle(fontSize: FontSize.s14)
+                      ? getCaptionStyle(
+                          fontSize: FontSize.s14, color: Colors.white)
                       : getLightStyle(fontSize: FontSize.s14)),
               TextSpan(
                   recognizer: TapGestureRecognizer()
@@ -40,7 +41,7 @@ class OrWidget extends StatelessWidget {
                           fontSize: FontSize.s17)
                       : getLightStyle(
                           fontSize: FontSize.s16,
-                          color: ColorManager.lightGrey)),
+                        )),
             ])),
       ),
     );
