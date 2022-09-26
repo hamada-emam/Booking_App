@@ -1,8 +1,8 @@
 import 'package:booking_app/src/app/core/utils/assets_manager.dart';
 import 'package:booking_app/src/features/booking/presentation/screens/booking_screen.dart';
-import 'package:booking_app/src/features/explore_hotels/data/models/hotels_data_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../app/core/core.dart';
+import '../../data/models/hotel_data.dart';
 
 class HotelItem extends StatelessWidget {
   final HotelData hotelData;
