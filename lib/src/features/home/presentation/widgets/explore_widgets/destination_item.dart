@@ -10,13 +10,14 @@ class DestinationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
+        height: 180,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           image: DecorationImage(
             image: AssetImage(
-              "assets/images/hotel.jpg",
+              "assets/images/italy.jpg",
             ),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
       ),
@@ -24,11 +25,11 @@ class DestinationItem extends StatelessWidget {
         top: 10,
         left: 20,
         child: Text(
-          "london",
+          "Italy",
           style: Theme.of(context)
               .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.bold),
+              .headline5!
+              .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
           overflow: TextOverflow.ellipsis,
         ),
       ),

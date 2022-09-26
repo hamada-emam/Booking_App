@@ -4,20 +4,25 @@ import 'package:flutter/material.dart';
 
 class AppTextFormField extends StatelessWidget {
   final String hintText;
-  final TextEditingController controller;
+  TextEditingController? controller;
   String Function(String?)? onFieldSubmitted;
   bool? isDark;
   String? Function(String?)? validator;
   IconData? suffixIcon;
+  TextInputType? keyboardType;
+  VoidCallback? onTapFunction;
+
 
   AppTextFormField({
     Key? key,
     required this.hintText,
-    required this.controller,
+    this.controller,
     this.validator,
     this.isDark = false,
     this.onFieldSubmitted,
     this.suffixIcon,
+    this.keyboardType,
+    this.onTapFunction,
   }) : super(key: key);
 
   @override
@@ -26,6 +31,8 @@ class AppTextFormField extends StatelessWidget {
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
       child: TextFormField(
+        onTap: onTapFunction,
+        keyboardType: keyboardType,
         onSaved: onFieldSubmitted,
         controller: controller,
         validator: validator,
