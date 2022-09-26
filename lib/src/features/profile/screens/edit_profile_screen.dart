@@ -8,7 +8,15 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ProfileModel m = ModalRoute.of(context)!.settings.arguments as ProfileModel;
     return Scaffold(
-      body: Text(m.data!.email, style: TextStyle(fontSize: 30)),
+      body: Column(
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon:const Icon(Icons.arrow_back))
+        ],
+      ),
     );
   }
 }
