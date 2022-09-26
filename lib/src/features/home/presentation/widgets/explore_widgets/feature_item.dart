@@ -1,4 +1,4 @@
-import 'package:booking_app/src/features/home/presentation/views/explore/details_page.dart';
+import 'package:booking_app/src/features/explore/details_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../app/core/utils/assets_manager.dart';
@@ -15,7 +15,7 @@ class FeatureItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => Details()));
+          Navigator.push(context, MaterialPageRoute(builder: (_) =>const Details()));
         },
         child: Card(
           elevation: 5,

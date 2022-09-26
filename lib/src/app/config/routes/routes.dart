@@ -2,6 +2,7 @@ import 'package:booking_app/src/features/auth/presentation/views/login_page.dart
 import 'package:booking_app/src/features/auth/presentation/views/signup.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/explore_screen.dart';
 import 'package:booking_app/src/features/filter/presentation/screens/filter_screen.dart';
+import 'package:booking_app/src/features/home/presentation/views/profile/screens/edit_profile_screen.dart';
 import 'package:booking_app/src/features/home/presentation/views/profile/screens/helpcenter.dart';
 import 'package:booking_app/src/features/home/presentation/views/profile/screens/change_pass.dart';
 import 'package:booking_app/src/features/home/presentation/views/profile/screens/invite_friend.dart';
@@ -24,6 +25,8 @@ class Routes {
   static const String exploreHotels = '/explore_hotels';
   static const String filter = '/filter';
   static const String search = '/search';
+  static const String editProfile = '/edit_profile';
+
   static const String changePassword = '/changePassword';
   static const String invitefriend = '/invitefriend';
   static const String helpcenter = '/helpcenter';
@@ -36,12 +39,13 @@ class Routes {
     return {
       getStarted: (context) => const GetStarted(),
       onboarding: (context) => const OnboardingScreen(),
-      login: (context) =>  LoginScreen(),
-      signup: (context) =>  SignupScreen(),
-      home:(context) => const HomeScreen(),
+      login: (context) => LoginScreen(),
+      signup: (context) => SignupScreen(),
+      home: (context) => const HomeScreen(),
       exploreHotels: (context) => ExploreScreen(),
       filter: (context) => FilterScreen(),
       search: (context) => SearchScreen(),
+      editProfile: (context) =>const EditProfileScreen(),
       changePassword: (context) => const ChangePassword(),
       invitefriend: (context) => const InviteFriend(),
       helpcenter: (context) => const HelpCenter(),
