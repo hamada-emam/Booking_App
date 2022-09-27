@@ -24,3 +24,4 @@ components/
 
 Color mainAppColor = const Color(0xff50bd9e);
 Color mainGreyColor = const Color(0xffb5b5b5);
+Color mainBackgroundColor = const Color(0xfff7f7f7);

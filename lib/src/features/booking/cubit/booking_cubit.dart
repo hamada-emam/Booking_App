@@ -12,27 +12,42 @@ class BookingCubit extends Cubit<BookingStates> {
 
   static BookingCubit get(context) => BlocProvider.of(context);
 
-  AllBookingData? allBookingData;
+  // AllBookingData? allBookingData;
+  AllBookingData? upcomingBookings;
+  AllBookingData? finishedBookings;
+  AllBookingData? cancelledBookings;
 
-  Future<void> getAllBookings({required String token, required String bookingType}) async {
+  Future<void> getAllBookingsTypes({required String token})
+  async {
     emit(LoadingGetBookingsState());
+    await getUpcomingBookings(token: token);
+    await getFinishedBookings(token: token);
+    await getCancelledBookings(token: token);
+    emit(SuccessGetBookingsState());
+
+  }
+  Future<void> getUpcomingBookings({required String token}) async {
     try {
       DioHelper apiHelper = sl<DioHelper>();
       var value = await apiHelper.get(
         endPoint: '/get-bookings',
         token: token,
         query: {
-          'type' : bookingType,
+          'type' : 'upcomming',
         },
       );
       // showToastMessage(message: "${value.data['message']}");
 
-      allBookingData = AllBookingData.fromJson(value);
-      debugPrint("-----------------------------------------------");
-      debugPrint(allBookingData!.data!.length.toString());
-      debugPrint("-----------------------------------------------");
+      if(value != null) {
+        upcomingBookings = AllBookingData.fromJson(value);
+        debugPrint("--------------------my upcoming---------------------------");
+        debugPrint(upcomingBookings!.data!.length.toString());
+        debugPrint("-----------------------my upcoming------------------------");
+      }
+      else{
+        upcomingBookings = null;
+      }
 
-      emit(SuccessGetBookingsState());
     } on DioError catch (e) {
       if (e.response == null) {
         // showToastMessage(message: "Check you connection", toastColor: Colors.red);
@@ -40,7 +55,63 @@ class BookingCubit extends Cubit<BookingStates> {
         debugPrint(e.response!.data);
         // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
       }
-      emit(FailedGetBookingsState());
+    }
+  }
+  Future<void> getFinishedBookings({required String token,}) async {
+    try {
+      DioHelper apiHelper = sl<DioHelper>();
+      var value = await apiHelper.get(
+        endPoint: '/get-bookings',
+        token: token,
+        query: {
+          'type' : 'completed',
+        },
+      );
+      if(value != null) {
+        finishedBookings = AllBookingData.fromJson(value);
+        debugPrint("-----------------------------------------------");
+        debugPrint(finishedBookings!.data!.length.toString());
+        debugPrint("-----------------------------------------------");
+      }
+      else{
+        finishedBookings = null;
+      }
+
+    } on DioError catch (e) {
+      if (e.response == null) {
+        // showToastMessage(message: "Check you connection", toastColor: Colors.red);
+      } else {
+        debugPrint(e.response!.data);
+      }
+    }
+  }
+  Future<void> getCancelledBookings({required String token,}) async {
+    try {
+      DioHelper apiHelper = sl<DioHelper>();
+      var value = await apiHelper.get(
+        endPoint: '/get-bookings',
+        token: token,
+        query: {
+          'type' : 'cancelled',
+        },
+      );
+
+      if(value != null) {
+        cancelledBookings = AllBookingData.fromJson(value);
+        debugPrint("-----------------------------------------------");
+        debugPrint(cancelledBookings!.data!.length.toString());
+        debugPrint("-----------------------------------------------");
+      }
+      else{
+        cancelledBookings = null;
+      }
+
+    } on DioError catch (e) {
+      if (e.response == null) {
+        // showToastMessage(message: "Check you connection", toastColor: Colors.red);
+      } else {
+        debugPrint(e.response!.data);
+      }
     }
   }
 
@@ -55,7 +126,6 @@ class BookingCubit extends Cubit<BookingStates> {
           'hotel_id' : hotelId
         }
       );
-      // showToastMessage(message: "${value.data['message']}");
       debugPrint("-----------------------created------------------------");
 
       emit(SuccessCreateBookingState());
@@ -64,7 +134,6 @@ class BookingCubit extends Cubit<BookingStates> {
         // showToastMessage(message: "Check you connection", toastColor: Colors.red);
       } else {
         debugPrint(e.response!.data);
-        // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
       }
       emit(FailedCreateBookingState());
     }
@@ -81,19 +150,17 @@ class BookingCubit extends Cubit<BookingStates> {
           'type' : statusType,
         }
       );
-      // showToastMessage(message: "${value.data['message']}");
       debugPrint("-----------------------created------------------------");
       debugPrint("$value");
 
-      emit(SuccessUpdateBookingState());
+      // emit(SuccessUpdateBookingState());
     } on DioError catch (e) {
       if (e.response == null) {
         // showToastMessage(message: "Check you connection", toastColor: Colors.red);
       } else {
         debugPrint(e.response!.data);
-        // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
       }
-      emit(FailedUpdateBookingState());
+      // emit(FailedUpdateBookingState());
     }
   }
 

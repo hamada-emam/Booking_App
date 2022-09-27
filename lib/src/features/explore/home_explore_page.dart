@@ -4,7 +4,6 @@ import 'package:booking_app/src/app/core/components/text_form_fields/app_textfor
 import 'package:booking_app/src/app/core/utils/colors_manager.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
-import 'package:booking_app/src/features/home/presentation/home_cubit/home_cubit.dart';
 import 'package:booking_app/src/features/home/presentation/widgets/explore_widgets/destination_item.dart';
 import 'package:booking_app/src/features/home/presentation/widgets/explore_widgets/feature_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -27,7 +26,7 @@ class HomeExplore extends StatelessWidget {
   List<String> itemList = [];
 
   Widget build(BuildContext context) {
-    var exploreCubit = HomeCubit.get(context);
+    var exploreCubit = ExploreCubit.get(context);
     exploreCubit.getAllHotels();
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -234,7 +233,7 @@ class HomeExplore extends StatelessWidget {
                 ],
               ),
             ),
-            BlocConsumer<HomeCubit, HomeState>(
+            BlocConsumer<ExploreCubit, ExploreStates>(
               listener: (context, state) {},
               builder: (context, state) {
                 return ConditionalBuilder(

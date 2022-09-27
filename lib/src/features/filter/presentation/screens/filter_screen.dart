@@ -34,7 +34,7 @@ class FilterScreen extends StatelessWidget {
               onPressed: () {
                 print("${exploreCubit.selectedPriceRange.start is int}");
                 print("${exploreCubit.selectedPriceRange.end}");
-                Navigator.pushNamed(context, Routes.search);
+                Navigator.popAndPushNamed(context, Routes.search);
               },
               txt: 'Apply',
             ),

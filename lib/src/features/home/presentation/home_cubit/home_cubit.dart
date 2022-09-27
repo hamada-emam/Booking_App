@@ -33,33 +33,33 @@ class HomeCubit extends Cubit<HomeState> {
     margin = 100;
   }
 
-  AllHotelsDataModel? allHotelsData;
+  // AllHotelsDataModel? allHotelsData;
 
 
-  Future<void> getAllHotels({String? token}) async {
-    try {
-      DioHelper apiHelper = sl<DioHelper>();
-      var value = await apiHelper.get(
-        endPoint: '/hotels/',
-        token: token,
-      );
-      // showToastMessage(message: "${value.data['message']}");
-      allHotelsData = AllHotelsDataModel.fromJson(value);
-      debugPrint("-----------------------------------------------");
-      debugPrint(allHotelsData!.data!.length.toString());
-      debugPrint("-----------------------------------------------");
-
-      emit(SuccessGetHotelsDataState());
-    } on DioError catch (e) {
-      if (e.response == null) {
-        // showToastMessage(message: "Check you connection", toastColor: Colors.red);
-      } else {
-        debugPrint(e.response!.data);
-        // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
-      }
-      emit(FailedGetHotelsDataState());
-    }
-  }
+  // Future<void> getAllHotels({String? token}) async {
+  //   try {
+  //     DioHelper apiHelper = sl<DioHelper>();
+  //     var value = await apiHelper.get(
+  //       endPoint: '/hotels/',
+  //       token: token,
+  //     );
+  //     // showToastMessage(message: "${value.data['message']}");
+  //     allHotelsData = AllHotelsDataModel.fromJson(value);
+  //     debugPrint("-----------------------------------------------");
+  //     debugPrint(allHotelsData!.data!.length.toString());
+  //     debugPrint("-----------------------------------------------");
+  //
+  //     emit(SuccessGetHotelsDataState());
+  //   } on DioError catch (e) {
+  //     if (e.response == null) {
+  //       // showToastMessage(message: "Check you connection", toastColor: Colors.red);
+  //     } else {
+  //       debugPrint(e.response!.data);
+  //       // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
+  //     }
+  //     emit(FailedGetHotelsDataState());
+  //   }
+  // }
 
 
 }

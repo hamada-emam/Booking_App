@@ -16,4 +16,6 @@ class FailedSearchState extends ExploreStates {}
 
 class DateRangePickedState extends ExploreStates {}
 
+class NumberOfRoomsChangedState extends ExploreStates {}
+
 class FilterSliderChangedState extends ExploreStates {}
