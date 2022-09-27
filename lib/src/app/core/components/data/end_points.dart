@@ -5,3 +5,5 @@ const String registerEndPoint = '/auth/register';
 
 const String profileEndPoint = '/auth/profile-info';
 const String hotelsEndPoint = '/hotels';
+//
+const String baseMapApi= "https://master.apis.dev.openstreetmap.org/";
