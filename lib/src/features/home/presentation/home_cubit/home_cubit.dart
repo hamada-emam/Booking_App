@@ -1,6 +1,7 @@
-import 'package:booking_app/src/features/explore_hotels/presentation/screens/explore_screen.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/profile_screen.dart';
-import 'package:booking_app/src/features/home/presentation/views/trips/presentation/screens/trips_screen.dart';
+
+import 'package:booking_app/src/features/explore/home_explore_page.dart';
+import 'package:booking_app/src/features/profile/profile_screen.dart';
+import 'package:booking_app/src/features/trips/presentation/screens/trips_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app/core/helpers/api_helpert.dart';
 import '../../../../app/injector.dart';
 import '../../data/models/all_hotels_data.dart';
-import '../views/explore/home_explore_page.dart';
 
 part 'home_state.dart';
 
@@ -16,7 +16,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   int index = 0;
   List<Widget> screens =
-      List<Widget>.from([(HomeExplore()), TripsScreen(), const ProfileScreen()]);
+      List<Widget>.from([(HomeExplore()),const TripsScreen(), const ProfileScreen()]);
   static HomeCubit get(BuildContext context) => BlocProvider.of(context);
   double opacity = 0;
   double margin = 100;

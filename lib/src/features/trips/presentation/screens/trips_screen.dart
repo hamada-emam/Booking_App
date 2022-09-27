@@ -1,7 +1,7 @@
 import 'package:booking_app/src/app/core/core.dart';
-import 'package:booking_app/src/features/home/presentation/views/trips/presentation/widgets/favorites_list.dart';
-import 'package:booking_app/src/features/home/presentation/views/trips/presentation/widgets/finished_list.dart';
-import 'package:booking_app/src/features/home/presentation/views/trips/presentation/widgets/upcoming_list.dart';
+import 'package:booking_app/src/features/trips/presentation/widgets/favorites_list.dart';
+import 'package:booking_app/src/features/trips/presentation/widgets/finished_list.dart';
+import 'package:booking_app/src/features/trips/presentation/widgets/upcoming_list.dart';
 import 'package:flutter/material.dart';
 
 class TripsScreen extends StatelessWidget {

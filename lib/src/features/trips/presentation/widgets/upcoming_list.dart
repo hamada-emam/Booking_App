@@ -1,11 +1,11 @@
 import 'package:booking_app/src/app/core/core.dart';
+import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_states.dart';
+import 'package:booking_app/src/features/explore_hotels/presentation/components/hotel_item.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../app/core/helpers/cash_helper.dart';
-import '../../../../../../explore_hotels/presentation/components/hotel_item.dart';
 
 class UpcomingBookingsList extends StatelessWidget {
   const UpcomingBookingsList({Key? key}) : super(key: key);

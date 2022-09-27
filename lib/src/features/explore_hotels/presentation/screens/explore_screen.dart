@@ -25,17 +25,19 @@ class ExploreScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Explore",
-          style: Theme.of(context)
-              .textTheme
-              .headline5!
-              .copyWith(fontWeight: FontWeight.w500,),
+          style: Theme.of(context).textTheme.headline5!.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
         ),
         centerTitle: true,
         actions: [
           IconButton(
             splashRadius: 20,
             onPressed: () {
-              BookingCubit.get(context).getAllBookings(token: 'jUtlnAuTMsUG9RwB6vAuwhNq6K3YMyi9wyCv3udfnquGGnEiUajz1JVBh0D2', bookingType: 'upcomming');
+              BookingCubit.get(context).getAllBookings(
+                  token:
+                      'jUtlnAuTMsUG9RwB6vAuwhNq6K3YMyi9wyCv3udfnquGGnEiUajz1JVBh0D2',
+                  bookingType: 'upcomming');
             },
             icon: const Icon(
               Icons.favorite_border,
