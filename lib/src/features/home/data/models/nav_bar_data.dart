@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 List <BottomNavigationBarItem>navbarItems = [
-  BottomNavigationBarItem(
+  const BottomNavigationBarItem(
     icon: Icon(Icons.search),
     label: "Explore",
   ),

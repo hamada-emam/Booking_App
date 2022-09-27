@@ -6,13 +6,14 @@ class AppTheme {
   static ThemeMode themeMode = ThemeMode.light;
   static ThemeData lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(
-      color: Colors.white,
+      color: Color(0xfff7f7f7),
       elevation: 0,
       toolbarHeight: 90,
       iconTheme: IconThemeData(color: Colors.black),
     ),
     iconTheme: IconThemeData(size: 30, color: mainAppColor),
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: const Color(0xfff7f7f7),
+
   );
 
   static ThemeData darkTheme = ThemeData(

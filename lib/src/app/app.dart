@@ -1,6 +1,7 @@
 import 'package:booking_app/src/app/config/routes/routes.dart';
 import 'package:booking_app/src/app/config/themes/app_theme.dart';
 import 'package:booking_app/src/app/core/core.dart';
+import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ExploreCubit>(
           create: (context) => ExploreCubit(),
         ),
+        BlocProvider<BookingCubit>(
+          create: (context) => BookingCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'Motel',
@@ -30,3 +34,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

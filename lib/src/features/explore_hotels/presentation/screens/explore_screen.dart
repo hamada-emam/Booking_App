@@ -1,6 +1,7 @@
 import 'package:booking_app/src/app/core/components/text_form_fields/app_textform_field.dart';
 import 'package:booking_app/src/app/core/core.dart';
 import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
+import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/hotels_result_screen.dart';
@@ -27,13 +28,15 @@ class ExploreScreen extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline5!
-              .copyWith(fontWeight: FontWeight.w500, color: Colors.black),
+              .copyWith(fontWeight: FontWeight.w500,),
         ),
         centerTitle: true,
         actions: [
           IconButton(
             splashRadius: 20,
-            onPressed: () {},
+            onPressed: () {
+              BookingCubit.get(context).getAllBookings(token: 'jUtlnAuTMsUG9RwB6vAuwhNq6K3YMyi9wyCv3udfnquGGnEiUajz1JVBh0D2', bookingType: 'upcomming');
+            },
             icon: const Icon(
               Icons.favorite_border,
             ),

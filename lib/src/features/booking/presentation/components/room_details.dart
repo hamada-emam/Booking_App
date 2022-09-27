@@ -1,3 +1,5 @@
+import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
+import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/core/components/buttons/main_button.dart';
@@ -6,7 +8,8 @@ import '../../../../app/core/utils/assets_manager.dart';
 class RoomDetails extends StatelessWidget {
   final String roomType;
   final int pricePerNight;
-  const RoomDetails({Key? key, required this.roomType, required this.pricePerNight}) : super(key: key);
+  final int? hotelId;
+  const RoomDetails({Key? key, required this.roomType, required this.pricePerNight, required this.hotelId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,11 @@ class RoomDetails extends StatelessWidget {
                       height: 40,
                       child: MainButton(
                         txt: 'Book now',
-                        onPressed: () {},
+                        onPressed: () {
+                          BookingCubit.get(context).createBooking(token: CashHelper.getData('token'), hotelId: hotelId);
+                          Navigator.pop(context);
+
+                        },
                       ))
 
                 ],
