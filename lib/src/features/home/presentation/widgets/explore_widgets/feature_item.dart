@@ -1,11 +1,10 @@
 import 'package:booking_app/src/features/explore/details_page.dart';
+import 'package:booking_app/src/features/explore_hotels/data/models/hotel_data.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../app/core/utils/assets_manager.dart';
-import '../../../data/models/all_hotels_data.dart';
 
 class FeatureItem extends StatelessWidget {
-  final HotelAllData hotelData;
+  final HotelData hotelData;
 
   const FeatureItem({Key? key, required this.hotelData}) : super(key: key);
 

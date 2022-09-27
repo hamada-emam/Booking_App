@@ -12,7 +12,10 @@ class HotelItem extends StatelessWidget {
   int? bookingId;
 
   HotelItem(
-      {Key? key, required this.hotelData, this.canEditStatus = false, this.bookingId})
+      {Key? key,
+      required this.hotelData,
+      this.canEditStatus = false,
+      this.bookingId})
       : super(key: key);
 
   @override
@@ -35,76 +38,99 @@ class HotelItem extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  hotelData.hotelImages!.isNotEmpty ?
-                  Image.network(
-                    'http://api.mahmoudtaha.com/images/${hotelData
-                        .hotelImages![0].image}',
-                    height: 210,
-                    // width: 380,
-                    fit: BoxFit.cover,
-                    // height: 50,
-                  )
+                  hotelData.hotelImages!.isNotEmpty
+                      ? Image.network(
+                          'http://api.mahmoudtaha.com/images/${hotelData.hotelImages![0].image}',
+                          height: 210,
+                          // width: 380,
+                          fit: BoxFit.cover,
+                          // height: 50,
+                        )
                       : Image.asset(
-                    AssetsManager.hotelImage,
-                    height: 210,
-                    // width: 380,
-                    fit: BoxFit.cover,
-                    // height: 50,
-                  ),
+                          AssetsManager.hotelImage,
+                          height: 210,
+                          // width: 380,
+                          fit: BoxFit.cover,
+                          // height: 50,
+                        ),
                   Align(
                     alignment: Alignment.topRight,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: canEditStatus! ? Column(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              BookingCubit.get(context).updateBookingStatus(
-                                token: CashHelper.getData('token'),
-                                bookingId: bookingId,
-                                statusType: 'cancelled',);
+                      child: canEditStatus!
+                          ? Column(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    BookingCubit.get(context)
+                                        .updateBookingStatus(
+                                      token: CashHelper.getData('token'),
+                                      bookingId: bookingId,
+                                      statusType: 'cancelled',
+                                    );
 
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              primary: Colors.white, // <-- Button color
-                              onPrimary: mainAppColor, // <-- Splash color
-                            ),
-                            child: const Icon(Icons.cancel_outlined, size: 20,),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              BookingCubit.get(context).updateBookingStatus(
-                                token: CashHelper.getData('token'),
-                                bookingId: bookingId,
-                                statusType: 'completed',);
+                                    //update data
+                                    BookingCubit.get(context)
+                                        .getAllBookingsTypes(
+                                      token: CashHelper.getData("token"),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    primary: Colors.white, // <-- Button color
+                                    onPrimary: mainAppColor, // <-- Splash color
+                                  ),
+                                  child: const Icon(
+                                    Icons.cancel_outlined,
+                                    size: 20,
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    BookingCubit.get(context)
+                                        .updateBookingStatus(
+                                      token: CashHelper.getData('token'),
+                                      bookingId: bookingId,
+                                      statusType: 'completed',
+                                    );
 
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              primary: Colors.white, // <-- Button color
-                              onPrimary: mainAppColor, // <-- Splash color
-                            ),
-                            child: const Icon(Icons.check, size: 20,),
-                          ),
-                        ],
-                      )
+                                    //update data
+                                    BookingCubit.get(context)
+                                        .getAllBookingsTypes(
+                                      token: CashHelper.getData("token"),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    primary: Colors.white, // <-- Button color
+                                    onPrimary: mainAppColor, // <-- Splash color
+                                  ),
+                                  child: const Icon(
+                                    Icons.check,
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
+                            )
                           : ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          primary: Colors.white, // <-- Button color
-                          onPrimary: mainAppColor, // <-- Splash color
-                        ),
-                        child: const Icon(Icons.favorite_border, size: 20,),
-                      ),
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                primary: Colors.white, // <-- Button color
+                                onPrimary: mainAppColor, // <-- Splash color
+                              ),
+                              child: const Icon(
+                                Icons.favorite_border,
+                                size: 20,
+                              ),
+                            ),
                     ),
                   )
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 10, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Column(
                   children: [
                     Row(
@@ -112,8 +138,7 @@ class HotelItem extends StatelessWidget {
                         Expanded(
                           child: Text(
                             "${hotelData.name}",
-                            style: Theme
-                                .of(context)
+                            style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
                                 .copyWith(fontWeight: FontWeight.bold),
@@ -122,8 +147,7 @@ class HotelItem extends StatelessWidget {
                         ),
                         Text(
                           "\$${hotelData.price}",
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .titleLarge!
                               .copyWith(fontWeight: FontWeight.bold),
@@ -134,8 +158,7 @@ class HotelItem extends StatelessWidget {
                       children: [
                         Text(
                           "${hotelData.address}",
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(color: Colors.grey),
@@ -147,8 +170,7 @@ class HotelItem extends StatelessWidget {
                         Expanded(
                           child: Text(
                             "2.0 km to city",
-                            style: Theme
-                                .of(context)
+                            style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(color: Colors.grey),
@@ -157,8 +179,7 @@ class HotelItem extends StatelessWidget {
                         ),
                         Text(
                           "/per night",
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(color: Colors.grey),
@@ -195,8 +216,7 @@ class HotelItem extends StatelessWidget {
                         ),
                         Text(
                           "${hotelData.rate}",
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(color: Colors.grey),

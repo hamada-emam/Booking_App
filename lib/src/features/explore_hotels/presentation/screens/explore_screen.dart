@@ -4,13 +4,16 @@ import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
+import 'package:booking_app/src/features/explore_hotels/presentation/components/hotel_item_map.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/hotels_result_screen.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/map_screen.dart';
+import 'package:booking_app/src/features/home/presentation/widgets/explore_widgets/feature_item.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../app/config/routes/routes.dart';
+import '../components/dialog_widget.dart';
 
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({Key? key}) : super(key: key);
@@ -19,7 +22,7 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryManager().init(context);
     var exploreCubit = ExploreCubit.get(context);
-    exploreCubit.getAllHotels();
+    // exploreCubit.getAllHotels();
 
     return Scaffold(
       appBar: AppBar(
@@ -33,12 +36,7 @@ class ExploreScreen extends StatelessWidget {
         actions: [
           IconButton(
             splashRadius: 20,
-            onPressed: () {
-              BookingCubit.get(context).getAllBookings(
-                  token:
-                      'jUtlnAuTMsUG9RwB6vAuwhNq6K3YMyi9wyCv3udfnquGGnEiUajz1JVBh0D2',
-                  bookingType: 'upcomming');
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.favorite_border,
             ),
@@ -136,18 +134,33 @@ class ExploreScreen extends StatelessWidget {
                       width: 5,
                     ),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Number of Room",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("1 Room 2 People"),
-                        ],
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return const NumberOfRoomDialog();
+                            },
+                          );
+                        },
+                        child: BlocConsumer<ExploreCubit, ExploreStates>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Number of Room",
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text("${exploreCubit.numberOfRooms} Room ${exploreCubit.numberOfPeople} People"),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -201,26 +214,33 @@ class ExploreScreen extends StatelessWidget {
                                 //   allHotelsData: exploreCubit.allHotelsData!,
                                 // ),
                                 //TODO : implement Horizontal List View
-                                Positioned(
+                                ConditionalBuilder(
+                                  condition: exploreCubit.allHotelsData != null,
+                                  builder: (context) => Positioned(
                                     bottom: 0,
                                     child: Container(
                                       width: MediaQueryManager.screenWidth,
-                                      height:
-                                          MediaQueryManager.screenHeight * 0.15,
-                                      child: ListView.builder(
+                                      height: 150,
+                                      child: ListView.separated(
+                                        physics: const BouncingScrollPhysics(),
                                         itemCount: exploreCubit
-                                            .allHotelsData!.data?.length,
+                                            .allHotelsData!.data!.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index) =>
-                                            Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          width: MediaQueryManager.screenWidth *
-                                              0.5,
-                                          color: Colors.grey,
+                                            HotelItemInMap(
+                                          hotelData: exploreCubit
+                                              .allHotelsData!.data![index],
+                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(
+                                          width: 20,
                                         ),
                                       ),
-                                    ))
+                                    ),
+                                  ),
+                                  fallback: (context) =>
+                                      const CircularProgressIndicator(),
+                                ),
                               ],
                             )
                           : const HotelsResultScreen(),

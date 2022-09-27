@@ -2,6 +2,7 @@ import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../app/config/routes/routes.dart';
 import '../../../../app/core/components/text_form_fields/app_textform_field.dart';
 import '../../../../app/core/core.dart';
 import '../../../explore_hotels/cubit/explore_states.dart';
@@ -53,6 +54,38 @@ class SearchScreen extends StatelessWidget {
             ),
           ),
 
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: BlocConsumer<ExploreCubit, ExploreStates>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return Text(
+                        exploreCubit.searchHotelsData != null?
+                        "${exploreCubit.searchHotelsData!.data!.length} Hotels found"
+                        : "Please wait...",
+                      );
+                    },
+                  ),
+                ),
+                const Text("Filter"),
+                const SizedBox(
+                  width: 5,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).popAndPushNamed(Routes.filter);
+                  },
+                  child: const Icon(
+                    Icons.filter_list,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           BlocConsumer<ExploreCubit, ExploreStates>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -64,12 +97,7 @@ class SearchScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: Text(
-                              "${exploreCubit.searchHotelsData!.data!.length} Hotels found",
-                            ),
-                          ),
+
                           Expanded(
                             child: ListView.separated(
                               physics: const BouncingScrollPhysics(),

@@ -13,43 +13,29 @@ class UpcomingBookingsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var bookingCubit = BookingCubit.get(context);
-    bookingCubit.getAllBookings(
-      token: CashHelper.getData("token"),
-      bookingType: 'upcomming',
-    );
+
     return BlocConsumer<BookingCubit, BookingStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        if(state is! LoadingGetBookingsState)
-          {
             return ConditionalBuilder(
-              condition: bookingCubit.allBookingData!.data!.isNotEmpty,
+              condition: bookingCubit.upcomingBookings != null,
               builder: (context) => ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) => HotelItem(
-                  hotelData: bookingCubit.allBookingData!.data![index].hotel!,
-                  bookingId: bookingCubit.allBookingData!.data![index].bookingId,
+                  hotelData: bookingCubit.upcomingBookings!.data![index].hotel!,
+                  bookingId: bookingCubit.upcomingBookings!.data![index].bookingId,
                   canEditStatus: true,
                 ),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 20,
                 ),
-                itemCount: bookingCubit.allBookingData!.data!.length,
+                itemCount: bookingCubit.upcomingBookings!.data!.length,
               ),
               fallback: (context) => const Center(
                 child:Text("There are no data here"),
               ),
             );
           }
-        else
-          {
-            return Center(
-              child: CircularProgressIndicator(
-                color: mainAppColor,
-              ),
-            );
-          }
-      },
     );
   }
 }

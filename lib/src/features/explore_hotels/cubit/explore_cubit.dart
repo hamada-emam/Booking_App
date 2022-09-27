@@ -125,4 +125,12 @@ class ExploreCubit extends Cubit<ExploreStates> {
   //filter data
   var selectedPriceRange = const RangeValues(10, 6000);
   double currentDistanceValue = 5;
+
+  //Number of rooms widget data
+  int numberOfRooms = 1;
+  int numberOfPeople = 1;
+  void changeNumberOfRoomsWidget()
+  {
+    emit(NumberOfRoomsChangedState());
+  }
 }
