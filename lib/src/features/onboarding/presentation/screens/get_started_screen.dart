@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'package:booking_app/src/app/config/routes/routes.dart';
 import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
 import 'package:booking_app/src/app/core/utils/assets_manager.dart';
 import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/app/core/utils/text_styles_manager.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/or_widget.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -22,39 +22,50 @@ class GetStarted extends StatelessWidget {
             SizedBox(
               height: MediaQueryManager.screenHeight * 0.2,
             ),
-            Image.asset(
-              AssetsManager.hotelLogo,
-              height: 50,
+            Card(
+              elevation: 10,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  fit: BoxFit.contain,
+                  AssetsManager.hotelLogo,
+                  height: 60,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Motel",
-                style: getBoldStyle(fontSize: FontSize.s22),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(color: Colors.black),
               ),
             ),
             Text(
               "Best hotel deals for your holiday",
-              style: getCaptionStyle(fontSize: FontSize.s14),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.grey.shade700, shadows: [
+                const Shadow(
+                  color: Colors.white,
+                  blurRadius: 30,
+                )
+              ]),
             ),
             const Spacer(),
             MainButton(
+              color: Colors.blue,
               txt: "Get started",
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.onboarding);
               },
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            MainButton(
-              txt: "Explore",
-              onPressed: () {
-                Navigator.of(context).pushNamed(Routes.exploreHotels);
-              },
-            ),
             OrWidget(
-                isDark: true,
+                isDark: false,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.login);
                 }),
@@ -82,7 +93,7 @@ class ShadedBackGround extends StatelessWidget {
             image: DecorationImage(
                 colorFilter: isDark
                     ? ColorFilter.mode(
-                        Colors.grey.shade700.withOpacity(0.7), BlendMode.darken)
+                        Colors.grey.shade700.withOpacity(0.6), BlendMode.darken)
                     : null,
                 image: const AssetImage(AssetsManager.getStartedImage),
                 fit: BoxFit.fill)),

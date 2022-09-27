@@ -32,7 +32,7 @@ class SignupScreen extends StatelessWidget {
     return BlocProvider<AuthCubit>(
         create: (context) => AuthCubit(repository: sl()),
         child: Scaffold(
-          backgroundColor: ColorManager.darkBackGround,
+          backgroundColor: ColorMangerH.appBgColor,
           body: SafeArea(
             child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -41,39 +41,6 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        BlocBuilder<AuthCubit, AuthState>(
-                          buildWhen: (previous, current) {
-                            return current is LoadingImageState ||
-                                current is ErrorImageState ||
-                                current is SuccessImageState;
-                          },
-                          builder: (context, state) {
-                            if (state is ErrorImageState) {
-                              Fluttertoast.showToast(
-                                  msg: state.exception.message);
-                              return CircleAvatar(
-                                child: Icon(Icons.error),
-                              );
-                            }
-                            return AuthCubit.get(context)
-                                    .image!=null
-                                    
-                                ? Center(
-                                    child: CircleAvatar(
-                                      child: Icon(Icons.done),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () async {
-                                      await AuthCubit.get(context)
-                                          .uploadImage();
-                                    },
-                                    child: CircleAvatar(
-                                      child: Icon(Icons.image),
-                                    ),
-                                  );
-                          },
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Align(
@@ -98,6 +65,39 @@ class SignupScreen extends StatelessWidget {
                         ),
                         const AutoAuthWidget(),
                         const OrLogDivider(),
+                        Center(
+                          child: BlocBuilder<AuthCubit, AuthState>(
+                            buildWhen: (previous, current) {
+                              return current is LoadingImageState ||
+                                  current is ErrorImageState ||
+                                  current is SuccessImageState;
+                            },
+                            builder: (context, state) {
+                              if (state is ErrorImageState) {
+                                Fluttertoast.showToast(
+                                    msg: state.exception.message);
+                                return const CircleAvatar(
+                                  child: Icon(Icons.error),
+                                );
+                              }
+                              return AuthCubit.get(context).image != null
+                                  ? const Center(
+                                      child: CircleAvatar(
+                                        child: Icon(Icons.done),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () async {
+                                        await AuthCubit.get(context)
+                                            .uploadImage();
+                                      },
+                                      child: const CircleAvatar(
+                                        child: Icon(Icons.image),
+                                      ),
+                                    );
+                            },
+                          ),
+                        ),
                         buildFieldLayout(
                             header: StringsManager.firstName,
                             hint: StringsManager.firstNameHint,
@@ -146,7 +146,11 @@ class SignupScreen extends StatelessWidget {
                         BlocConsumer<AuthCubit, AuthState>(
                           listener: (context, state) {
                             if (state is SuccessAuthState) {
-                              Navigator.pushNamed(context, Routes.exploreHotels);
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                Routes.home,
+                                (route) => false,
+                              );
                             }
                           },
                           builder: (context, state) {
@@ -162,9 +166,9 @@ class SignupScreen extends StatelessWidget {
                                         isExpanded: true,
                                         onPressed: () async {
                                           if (AuthCubit.get(
-                                                  context) //first validate the image
-                                              .image==null
-                                              ) {
+                                                      context) //first validate the image
+                                                  .image ==
+                                              null) {
                                             Fluttertoast.showToast(
                                                 msg: "Please Provide an image");
                                           } else {

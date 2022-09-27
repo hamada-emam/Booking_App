@@ -144,13 +144,13 @@ extension on DioHelper {
         message: "please check your connection",
       );
     } catch (e) {
-      // PrimaryServerException exception = e as PrimaryServerException;
-      //
-      // throw PrimaryServerException(
-      //   code: exception.code,
-      //   error: exception.error,
-      //   message: exception.message,
-      // );
+      PrimaryServerException exception = e as PrimaryServerException;
+
+      throw PrimaryServerException(
+        code: exception.code,
+        error: exception.error,
+        message: exception.message,
+      );
     }
   }
 }

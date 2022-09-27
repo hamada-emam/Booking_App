@@ -12,7 +12,6 @@ class AppTextFormField extends StatelessWidget {
   TextInputType? keyboardType;
   VoidCallback? onTapFunction;
 
-
   AppTextFormField({
     Key? key,
     required this.hintText,
@@ -27,9 +26,14 @@ class AppTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(30),
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Colors.grey.shade300,
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: Offset(0, 10)),
+      ]),
       child: TextFormField(
         onTap: onTapFunction,
         keyboardType: keyboardType,

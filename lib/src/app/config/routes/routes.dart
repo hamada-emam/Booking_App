@@ -48,7 +48,7 @@ class Routes {
       filter: (context) => FilterScreen(),
       search: (context) => SearchScreen(),
       editProfile: (context) => EditProfileScreen(),
-      changePassword: (context) => const ChangePassword(),
+      changePassword: (context) => ChangePassword(),
       invitefriend: (context) => const InviteFriend(),
       helpcenter: (context) => const HelpCenter(),
       payment: (context) => const Payment(),
