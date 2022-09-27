@@ -5,6 +5,7 @@ import 'package:booking_app/src/app/core/exceptions/network_exception.dart';
 import 'package:booking_app/src/app/core/helpers/api_helpert.dart';
 import 'package:booking_app/src/features/auth/data/models/login_model.dart';
 import 'package:booking_app/src/features/auth/data/models/profile_info_model.dart';
+import 'package:booking_app/src/features/auth/data/models/user_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,9 @@ abstract class AuthRepository {
   Future<Either<PrimaryServerException, ProfileModel>> getProfile({
     required String token,
   });
+
+  Future<Either<PrimaryServerException, ProfileModel>> updateProfile(
+      {required UserModel user, String? imagePath});
 }
 
 class RepositoryImplementation extends AuthRepository {
@@ -71,10 +75,9 @@ class RepositoryImplementation extends AuthRepository {
           "password_confirmation": password
         });
 
-        final  res = await dioHelper.post(
+        final res = await dioHelper.post(
             endPoint: registerEndPoint, isMultipart: true, data: formData);
-       
-       
+
         return LoginModel.fromJson(res);
       },
       onPrimaryServerException: (exception) async {
@@ -103,6 +106,33 @@ class RepositoryImplementation extends AuthRepository {
       onPrimaryServerException: (e) async {
         return e;
       },
+    );
+  }
+
+  @override
+  Future<Either<PrimaryServerException, ProfileModel>> updateProfile(
+      {required UserModel user, String? imagePath}) async {
+    var formData = FormData.fromMap({
+      "name": user.name,
+      "email": user.email,
+      "image": imagePath != null
+          ? await MultipartFile.fromFile(imagePath)
+          : null,
+      "address": user.address,
+      "date_of_birth": user.dateOfBirth,
+      "phone": user.phone,
+    });
+
+    return basicErrorHandling(
+      onSuccess: () async {
+        final res = await dioHelper.post(
+            token: user.token,
+            isMultipart: imagePath == null,
+            endPoint: updateProfileEndPoint,
+            data: formData);
+        return ProfileModel.fromJson(res);
+      },
+      onPrimaryServerException: (exception) async => exception,
     );
   }
 }

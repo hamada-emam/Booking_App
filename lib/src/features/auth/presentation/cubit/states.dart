@@ -25,3 +25,10 @@ class ErrorImageState extends AuthState {
     required this.exception,
   });
 }
+  class LoadingUpdateProfileState extends AuthState {}
+
+class SuccessUpdateProfileState extends AuthState {}
+
+class ErrorUpdateProfileState extends AuthState {}
+
+

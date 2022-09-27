@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:bloc/bloc.dart';
 import 'package:booking_app/src/app/core/exceptions/network_exception.dart';
 import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
 import 'package:booking_app/src/features/auth/data/models/login_model.dart';
 import 'package:booking_app/src/features/auth/data/models/profile_info_model.dart';
+import 'package:booking_app/src/features/auth/data/models/user_model.dart';
 import 'package:booking_app/src/features/auth/data/repo/auth_repo.dart';
 import 'package:booking_app/src/features/auth/presentation/cubit/states.dart';
 
@@ -42,7 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(ErrorAuthState(exception: l));
     }, (r) async {
       userModel = r;
-      print("------------------"+r.data!.token);
+      print("------------------" + r.data!.token);
       await CashHelper.setData("token", r.data!.token);
 
       emit(SuccessAuthState());
@@ -74,9 +72,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> userProfile() async {
     emit(LoadingAuthState());
 
-    final response = await repository.getProfile(
-      token: CashHelper.getData("token")
-    );
+    final response =
+        await repository.getProfile(token: CashHelper.getData("token"));
 
     response.fold(
       (l) {
@@ -115,5 +112,20 @@ class AuthCubit extends Cubit<AuthState> {
           exception: PrimaryServerException(
               code: 105, error: e.toString(), message: "image loading faild")));
     }
+  }
+
+  Future<void> editUserProfile(
+      {required UserModel user, String? imagepath}) async {
+    emit(LoadingUpdateProfileState());
+    final res =
+        await repository.updateProfile(user: user, imagePath: imagepath);
+    res.fold((l) {
+      emit(
+        ErrorAuthState(exception: l),
+      );
+    }, (r) {
+      profileModel = r;
+      emit(SuccessUpdateProfileState());
+    });
   }
 }

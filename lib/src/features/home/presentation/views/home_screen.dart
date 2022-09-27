@@ -1,3 +1,4 @@
+import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/features/home/data/models/nav_bar_data.dart';
 
 import 'package:ezanimation/ezanimation.dart';
@@ -11,6 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryManager().init(context);
     return BlocProvider(
       create: (context) => HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(
