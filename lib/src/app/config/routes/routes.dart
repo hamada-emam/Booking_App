@@ -1,19 +1,20 @@
 import 'package:booking_app/src/features/auth/presentation/views/login_page.dart';
 import 'package:booking_app/src/features/auth/presentation/views/signup.dart';
+import 'package:booking_app/src/features/explore/details_page.dart';
 import 'package:booking_app/src/features/explore_hotels/presentation/screens/explore_screen.dart';
 import 'package:booking_app/src/features/filter/presentation/screens/filter_screen.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/screens/edit_profile_screen.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/screens/helpcenter.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/screens/change_pass.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/screens/invite_friend.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/screens/payment.dart';
-import 'package:booking_app/src/features/home/presentation/views/profile/screens/settings.dart';
+
 import 'package:booking_app/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/get_started_screen.dart';
+import 'package:booking_app/src/features/profile/screens/change_pass.dart';
+import 'package:booking_app/src/features/profile/screens/edit_profile_screen.dart';
+import 'package:booking_app/src/features/profile/screens/helpcenter.dart';
+import 'package:booking_app/src/features/profile/screens/invite_friend.dart';
+import 'package:booking_app/src/features/profile/screens/payment.dart';
+import 'package:booking_app/src/features/profile/screens/settings.dart';
 import 'package:booking_app/src/features/search/presentation/screens/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../features/home/presentation/views/explore/details_page.dart';
 import '../../../features/home/presentation/views/home_screen.dart';
 
 class Routes {
