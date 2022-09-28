@@ -17,35 +17,31 @@ class UpcomingBookingsList extends StatelessWidget {
     return BlocConsumer<BookingCubit, BookingStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          if (state is! LoadingGetBookingsState) {
-            return ConditionalBuilder(
-              condition: bookingCubit.upcomingBookings != null,
-              // means that the list is not empty
-              builder: (context) => ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => HotelItem(
-                  hotelData: bookingCubit.upcomingBookings!.data![index].hotel!,
-                  bookingId:
-                      bookingCubit.upcomingBookings!.data![index].bookingId,
-                  canEditStatus: true,
-                ),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 20,
-                ),
-                itemCount: bookingCubit.upcomingBookings!.data!.length,
-              ),
-              fallback: (context) => const Center(
-                child: Text("There are no data here"),
-              ),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(
-                color: mainAppColor,
-                strokeWidth: 3,
-              ),
-            );
-          }
+          return ConditionalBuilder(
+            condition: bookingCubit.upcomingBookings != null,
+            builder: (context) {
+              return (bookingCubit.upcomingBookings!.data!.isEmpty)
+                  ? const Center(child: Text("There are no data here"))
+                  : ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => HotelItem(
+                        hotelData:
+                            bookingCubit.upcomingBookings!.data![index].hotel!,
+                        bookingId: bookingCubit
+                            .upcomingBookings!.data![index].bookingId,
+                        canEditStatus: true,
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
+                      itemCount: bookingCubit.upcomingBookings!.data!.length,
+                    );
+            },
+            fallback: (context) => const Center(
+              child: Text("There are no data here"),
+            ),
+          );
+
         });
   }
 }
