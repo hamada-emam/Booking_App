@@ -1,7 +1,9 @@
+import 'package:booking_app/src/app/config/routes/routes.dart';
 import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
 import 'package:booking_app/src/app/core/utils/colors_manager.dart';
 import 'package:booking_app/src/app/core/utils/text_styles_manager.dart';
 import 'package:booking_app/src/features/home/presentation/widgets/profile_widgets/profile_item.dart';
+import 'package:booking_app/src/features/onboarding/presentation/screens/get_started_screen.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatelessWidget {
@@ -83,6 +85,8 @@ class Settings extends StatelessWidget {
                           icon: Icons.arrow_forward_ios,
                           onTap: () async {
                             await CashHelper.sharedPreferences!.remove("token");
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                Routes.getStarted, (route) => false);
                           },
                         )
                       ]),
