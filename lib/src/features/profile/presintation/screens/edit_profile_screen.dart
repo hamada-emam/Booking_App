@@ -29,6 +29,7 @@ class EditProfileScreen extends StatelessWidget {
     ProfileModel m = ModalRoute.of(context)!.settings.arguments as ProfileModel;
     return WillPopScope(
       onWillPop: () async {
+        //get back to home
         Navigator.pushReplacementNamed(context, Routes.home);
         return true;
       },
@@ -108,30 +109,26 @@ class EditProfileScreen extends StatelessWidget {
                             controller: address,
                             suffixString: m.data!.address),
                         Center(
-                          child:
-
-                              state is LoadingUpdateProfileState
-                                  ? const SimpleLoader()
-                                  : MainButton(
-                                      txt: "update",
-                                      onPressed: () {
-                                        AuthCubit.get(context).editUserProfile(
-                                          user: UserModel(
-                                              id: m.data!.id,
-                                              token: m.data!.token,
-                                              name: name.text,
-                                              email: email.text,
-                                              address: address.text,
-                                              dateOfBirth: dateOfBirth.text,
-                                              phone: phone.text),
-                                          imagepath: withImage
-                                              ? AuthCubit.get(context)
-                                                  .image!
-                                                  .path
-                                              : null,
-                                        );
-                                      },
-                                    ),
+                          child: state is LoadingUpdateProfileState
+                              ? const SimpleLoader()
+                              : MainButton(
+                                  txt: "update",
+                                  onPressed: () {
+                                    AuthCubit.get(context).editUserProfile(
+                                      user: UserModel(
+                                          id: m.data!.id,
+                                          token: m.data!.token,
+                                          name: name.text,
+                                          email: email.text,
+                                          address: address.text,
+                                          dateOfBirth: dateOfBirth.text,
+                                          phone: phone.text),
+                                      imagepath: withImage
+                                          ? AuthCubit.get(context).image!.path
+                                          : null,
+                                    );
+                                  },
+                                ),
                         ),
                       ]);
                 })),
