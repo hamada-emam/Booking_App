@@ -6,12 +6,13 @@ import 'package:booking_app/src/features/filter/presentation/screens/filter_scre
 
 import 'package:booking_app/src/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:booking_app/src/features/onboarding/presentation/screens/get_started_screen.dart';
-import 'package:booking_app/src/features/profile/screens/change_pass.dart';
-import 'package:booking_app/src/features/profile/screens/edit_profile_screen.dart';
-import 'package:booking_app/src/features/profile/screens/helpcenter.dart';
-import 'package:booking_app/src/features/profile/screens/invite_friend.dart';
-import 'package:booking_app/src/features/profile/screens/payment.dart';
-import 'package:booking_app/src/features/profile/screens/settings.dart';
+import 'package:booking_app/src/features/profile/presintation/screens/change_pass.dart';
+import 'package:booking_app/src/features/profile/presintation/screens/edit_profile_screen.dart';
+import 'package:booking_app/src/features/profile/presintation/screens/helpcenter.dart';
+import 'package:booking_app/src/features/profile/presintation/screens/invite_friend.dart';
+import 'package:booking_app/src/features/profile/presintation/screens/payment.dart';
+import 'package:booking_app/src/features/profile/presintation/screens/settings.dart';
+
 import 'package:booking_app/src/features/search/presentation/screens/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -46,7 +47,7 @@ class Routes {
       exploreHotels: (context) => ExploreScreen(),
       filter: (context) => FilterScreen(),
       search: (context) => SearchScreen(),
-      editProfile: (context) =>const EditProfileScreen(),
+      editProfile: (context) => EditProfileScreen(),
       changePassword: (context) => const ChangePassword(),
       invitefriend: (context) => const InviteFriend(),
       helpcenter: (context) => const HelpCenter(),
