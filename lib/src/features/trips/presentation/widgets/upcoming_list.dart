@@ -15,27 +15,32 @@ class UpcomingBookingsList extends StatelessWidget {
     var bookingCubit = BookingCubit.get(context);
 
     return BlocConsumer<BookingCubit, BookingStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
-            return ConditionalBuilder(
-              condition: bookingCubit.upcomingBookings != null,
-              builder: (context) => ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) => HotelItem(
-                  hotelData: bookingCubit.upcomingBookings!.data![index].hotel!,
-                  bookingId: bookingCubit.upcomingBookings!.data![index].bookingId,
-                  canEditStatus: true,
-                ),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 20,
-                ),
-                itemCount: bookingCubit.upcomingBookings!.data!.length,
-              ),
-              fallback: (context) => const Center(
-                child:Text("There are no data here"),
-              ),
-            );
-          }
-    );
+        listener: (context, state) {},
+        builder: (context, state) {
+          return ConditionalBuilder(
+            condition: bookingCubit.upcomingBookings != null,
+            builder: (context) {
+              return (bookingCubit.upcomingBookings!.data!.isEmpty)
+                  ? const Center(child: Text("There are no data here"))
+                  : ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => HotelItem(
+                        hotelData:
+                            bookingCubit.upcomingBookings!.data![index].hotel!,
+                        bookingId: bookingCubit
+                            .upcomingBookings!.data![index].bookingId,
+                        canEditStatus: true,
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 20,
+                      ),
+                      itemCount: bookingCubit.upcomingBookings!.data!.length,
+                    );
+            },
+            fallback: (context) => const Center(
+              child: Text("There are no data here"),
+            ),
+          );
+        });
   }
 }

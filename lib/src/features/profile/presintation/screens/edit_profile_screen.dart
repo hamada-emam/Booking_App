@@ -41,6 +41,7 @@ class EditProfileScreen extends StatelessWidget {
             child: BlocProvider(
                 create: (context) => sl<AuthCubit>(),
                 child: BlocBuilder<AuthCubit, AuthState>(
+                  
                     builder: (context, state) {
                   bool withImage = AuthCubit.get(context).image != null;
                   if (state is ErrorAuthState) {
@@ -48,6 +49,7 @@ class EditProfileScreen extends StatelessWidget {
                   }
                   if (state is SuccessUpdateProfileState) {
                     m = AuthCubit.get(context).profileModel!;
+                    Fluttertoast.showToast(msg: "profile updated successfully");
                   }
                   return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

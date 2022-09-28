@@ -125,11 +125,13 @@ extension on DioHelper {
       if (r.data['status']['type'] == '0') {
         dynamic title = r.data['status']['title'];
 
-        throw PrimaryServerException(
-          message: title is String ? title : r.data['status']['title']['ar'],
-          code: r.statusCode ?? 500,
-          error: title is String ? title : r.data['status']['title']['en'],
-        );
+        if (title !=null) {
+  throw PrimaryServerException(
+    message: title is String ? title : r.data['status']['title']['ar'],
+    code: r.statusCode ?? 500,
+    error: title is String ? title : r.data['status']['title']['en'],
+  );
+}
       }
 
       return r.data;
