@@ -26,7 +26,7 @@ class _AutoPlayPagesState extends State<AutoPlayPages> {
     timer = Timer.periodic(AppValues.slideDuration, (timer) {
       (currentPage < 2) ? currentPage++ : currentPage = 0;
       pageController.animateToPage(currentPage,
-          curve: Curves.linear, duration:AppValues.transitionDurataion);
+          curve: Curves.linear, duration: AppValues.transitionDurataion);
     });
   }
 
@@ -52,13 +52,14 @@ class _AutoPlayPagesState extends State<AutoPlayPages> {
             effect: const WormEffect(
                 dotHeight: 11,
                 dotWidth: 11,
-                activeDotColor: ColorManager.primaryColor,
-                dotColor: ColorManager.darkGrey),
+                activeDotColor: ColorMangerH.blue,
+                dotColor: ColorMangerH.inActiveColor),
             controller: pageController,
             count: 3),
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
           child: MainButton(
+            color: Colors.blue.shade600,
             txt: "Login",
             onPressed: () {
               Navigator.of(context).pushNamed(Routes.login);
@@ -68,7 +69,8 @@ class _AutoPlayPagesState extends State<AutoPlayPages> {
         ),
         MainButton(
           txt: "Create account",
-          color: ColorManager.darkGrey,
+          txtColor: ColorMangerH.darker,
+          color: ColorMangerH.textBoxColor,
           onPressed: () {
             Navigator.of(context).pushNamed(Routes.signup);
           },

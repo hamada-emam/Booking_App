@@ -31,15 +31,15 @@ class LoginScreen extends StatelessWidget {
         create: (context) => AuthCubit(repository: sl()),
         child: Scaffold(
           appBar: AppBar(
-              backgroundColor: ColorManager.darkBackGround,
+              backgroundColor: ColorMangerH.appBarColor,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                color: Colors.white,
+                color: Colors.black,
                 onPressed: () {
                   Navigator.pop(context);
                 },
               )),
-          backgroundColor: ColorManager.darkBackGround,
+          backgroundColor: ColorMangerH.appBgColor,
           body: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Form(
@@ -86,7 +86,11 @@ class LoginScreen extends StatelessWidget {
                       BlocConsumer<AuthCubit, AuthState>(
                         listener: (context, state) {
                           if (state is SuccessAuthState) {
-                            Navigator.pushNamed(context, Routes.exploreHotels);
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Routes.home,
+                              (route) => false,
+                            );
                           }
                         },
                         builder: (context, state) {
@@ -106,7 +110,6 @@ class LoginScreen extends StatelessWidget {
                                             await AuthCubit.get(context)
                                                 .userLogin(emailController.text,
                                                     passwordController.text);
-                                       
                                           } catch (e) {
                                             Fluttertoast.showToast(
                                                 msg:
