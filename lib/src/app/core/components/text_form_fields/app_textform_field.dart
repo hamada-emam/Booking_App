@@ -11,6 +11,7 @@ class AppTextFormField extends StatelessWidget {
   IconData? suffixIcon;
   TextInputType? keyboardType;
   VoidCallback? onTapFunction;
+  bool? hasShadow;
 
   AppTextFormField({
     Key? key,
@@ -22,6 +23,7 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.keyboardType,
     this.onTapFunction,
+    this.hasShadow = true,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class AppTextFormField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-            color: Colors.grey.shade300,
+            color: hasShadow! ? Colors.grey.shade300 : Colors.transparent,
             blurRadius: 10,
             spreadRadius: 1,
             offset: Offset(0, 10)),

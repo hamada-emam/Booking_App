@@ -69,9 +69,9 @@ class BookingCubit extends Cubit<BookingStates> {
       );
       if(value != null) {
         finishedBookings = AllBookingData.fromJson(value);
-        debugPrint("-----------------------------------------------");
+        debugPrint("--------------------my finished---------------------------");
         debugPrint(finishedBookings!.data!.length.toString());
-        debugPrint("-----------------------------------------------");
+        debugPrint("--------------------my finished---------------------------");
       }
       else{
         finishedBookings = null;
@@ -98,9 +98,9 @@ class BookingCubit extends Cubit<BookingStates> {
 
       if(value != null) {
         cancelledBookings = AllBookingData.fromJson(value);
-        debugPrint("-----------------------------------------------");
+        debugPrint("---------------------my cancelled--------------------------");
         debugPrint(cancelledBookings!.data!.length.toString());
-        debugPrint("-----------------------------------------------");
+        debugPrint("---------------------my cancelled--------------------------");
       }
       else{
         cancelledBookings = null;
@@ -128,7 +128,7 @@ class BookingCubit extends Cubit<BookingStates> {
       );
       debugPrint("-----------------------created------------------------");
 
-      emit(SuccessCreateBookingState());
+      // emit(SuccessCreateBookingState());
     } on DioError catch (e) {
       if (e.response == null) {
         // showToastMessage(message: "Check you connection", toastColor: Colors.red);

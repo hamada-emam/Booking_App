@@ -14,13 +14,7 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var exploreCubit = ExploreCubit.get(context);
-    exploreCubit.searchForHotels(
-      searchMap: {
-        'name' : exploreCubit.searchController.text,
-        'max_price' : exploreCubit.selectedPriceRange.end,
-        'min_price' : exploreCubit.selectedPriceRange.start,
-      },
-    );
+    exploreCubit.searchForHotels();
 
     return Scaffold(
       appBar: AppBar(
@@ -40,20 +34,12 @@ class SearchScreen extends StatelessWidget {
               hintText: 'Search',
               controller: exploreCubit.searchController,
               suffixIcon: Icons.search,
-              onFieldSubmitted: (value)
-              {
-                exploreCubit.searchForHotels(
-                  searchMap: {
-                    'name' : exploreCubit.searchController.text,
-                    'max_price' : exploreCubit.selectedPriceRange.end,
-                    'min_price' : exploreCubit.selectedPriceRange.start,
-                  },
-                );
+              onFieldSubmitted: (value) {
+                exploreCubit.searchForHotels();
                 return '';
               },
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
             child: Row(
@@ -63,9 +49,9 @@ class SearchScreen extends StatelessWidget {
                     listener: (context, state) {},
                     builder: (context, state) {
                       return Text(
-                        exploreCubit.searchHotelsData != null?
-                        "${exploreCubit.searchHotelsData!.data!.length} Hotels found"
-                        : "Please wait...",
+                        exploreCubit.searchHotelsData != null
+                            ? "${exploreCubit.searchHotelsData!.data!.length} Hotels found"
+                            : "Please wait...",
                       );
                     },
                   ),
@@ -85,52 +71,50 @@ class SearchScreen extends StatelessWidget {
               ],
             ),
           ),
-
           BlocConsumer<ExploreCubit, ExploreStates>(
             listener: (context, state) {},
             builder: (context, state) {
-              if(exploreCubit.searchHotelsData != null && state is! LoadingSearchState)
-                {
-                  return ConditionalBuilder(
-                    condition: exploreCubit.searchHotelsData!.data!.isNotEmpty,
-                    builder: (context) => Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          Expanded(
-                            child: ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) => HotelItem(
-                                  hotelData: exploreCubit.searchHotelsData!.data![index]),
-                              separatorBuilder: (context, index) => const SizedBox(
-                                height: 25,
-                              ),
-                              itemCount: exploreCubit.searchHotelsData!.data!.length,
+              if (exploreCubit.searchHotelsData != null &&
+                  state is! LoadingSearchState) {
+                return ConditionalBuilder(
+                  condition: exploreCubit.searchHotelsData!.data!.isNotEmpty,
+                  builder: (context) => Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) => HotelItem(
+                                hotelData: exploreCubit
+                                    .searchHotelsData!.data![index]),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 25,
                             ),
+                            itemCount:
+                                exploreCubit.searchHotelsData!.data!.length,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    fallback: (context) => const Expanded(
-                      child: Center(
-                        child: Text("Sorry, there is no result"),
-                      ),
-                    ),
-                  );
-                }
-              else
-                {
-                  return Expanded(
+                  ),
+                  fallback: (context) => const Expanded(
                     child: Center(
-                      child: CircularProgressIndicator(
-                        color: mainAppColor,
-                        strokeWidth: 3,
-                      ),
+                      child: Text("Sorry, there is no result"),
                     ),
-                  );
-                }
-
+                  ),
+                );
+              } else {
+                return Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: mainAppColor,
+                      strokeWidth: 3,
+                    ),
+                  ),
+                );
+              }
             },
           ),
         ],
