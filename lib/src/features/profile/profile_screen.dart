@@ -19,11 +19,11 @@ class ProfileScreen extends StatelessWidget {
       child: SafeArea(child: Scaffold(body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is LoadingAuthState) {
-            return const Center(child:  SimpleLoader());
+            return const Center(child: SimpleLoader());
           }
           if (state is ErrorAuthState) {
             return const Center(
-                child:  Icon(
+                child: Icon(
               Icons.wifi_off_sharp,
               size: 70,
             ));
