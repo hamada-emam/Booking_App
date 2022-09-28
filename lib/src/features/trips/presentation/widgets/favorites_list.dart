@@ -17,7 +17,7 @@ class CancelledBookingsList extends StatelessWidget {
       builder: (context, state) {
         if (state is! LoadingGetBookingsState) {
           return ConditionalBuilder(
-            condition: bookingCubit.cancelledBookings != null,
+            condition: bookingCubit.cancelledBookings != null, // means that the list is not empty
             builder: (context) => ListView.separated(
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) => HotelItem(
@@ -37,6 +37,7 @@ class CancelledBookingsList extends StatelessWidget {
           return Center(
             child: CircularProgressIndicator(
               color: mainAppColor,
+              strokeWidth: 3,
             ),
           );
         }

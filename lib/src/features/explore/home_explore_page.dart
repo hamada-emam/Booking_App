@@ -36,6 +36,7 @@ class HomeExplore extends StatelessWidget {
         centerTitle: true,
         title: AppTextFormField(
           hintText: "Search",
+          hasShadow: false,
           suffixIcon: Icons.search,
           controller: ExploreCubit.get(context).searchController,
           onFieldSubmitted: (value) {

@@ -14,7 +14,7 @@ class ExploreCubit extends Cubit<ExploreStates> {
 
   bool isMapScreen = false;
   TextEditingController searchController = TextEditingController();
-
+  TextEditingController addressController = TextEditingController();
 
   void changeScreen() {
     isMapScreen = !isMapScreen;
@@ -49,15 +49,22 @@ class ExploreCubit extends Cubit<ExploreStates> {
     }
   }
 
-  Future<void> searchForHotels(
-      {String? token, required Map<String, dynamic> searchMap}) async {
+  Future<void> searchForHotels({
+    String? token,
+  }) async {
     emit(LoadingSearchState());
     try {
       DioHelper apiHelper = sl<DioHelper>();
       var value = await apiHelper.get(
         endPoint: '/search-hotels',
         token: token,
-        query: searchMap,
+        query: {
+          'name': searchController.text,
+          'address' : addressController.text,
+          'max_price': selectedPriceRange.end,
+          'min_price': selectedPriceRange.start,
+          // 'facilities[0]': 1,
+        },
       );
       // showToastMessage(message: "${value.data['message']}");
       searchHotelsData = AllHotelsData.fromJson(value);
@@ -129,8 +136,8 @@ class ExploreCubit extends Cubit<ExploreStates> {
   //Number of rooms widget data
   int numberOfRooms = 1;
   int numberOfPeople = 1;
-  void changeNumberOfRoomsWidget()
-  {
+
+  void changeNumberOfRoomsWidget() {
     emit(NumberOfRoomsChangedState());
   }
 }
