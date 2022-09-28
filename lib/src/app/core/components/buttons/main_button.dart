@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
       required this.txt,
       this.isExpanded = false,
       required this.onPressed,
-      this.color = ColorManager.primaryColor,
+      this.color = const Color(0xFF1976D2),
       this.borderRadius = 20.0})
       : super(key: key);
 
@@ -28,7 +28,7 @@ class MainButton extends StatelessWidget {
             shape: const StadiumBorder(),
             primary: color,
             minimumSize: isExpanded
-                ? Size(MediaQuery.of(context).size.width * 0.8,
+                ? Size(MediaQuery.of(context).size.width * 0.9,
                     MediaQuery.of(context).size.width / 8)
                 : Size(MediaQuery.of(context).size.width / 1.5,
                     MediaQuery.of(context).size.width / 8)),
