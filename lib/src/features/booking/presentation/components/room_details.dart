@@ -48,6 +48,7 @@ class RoomDetails extends StatelessWidget {
                         txt: 'Book now',
                         onPressed: () {
                           BookingCubit.get(context).createBooking(token: CashHelper.getData('token'), hotelId: hotelId);
+                          BookingCubit.get(context).getAllBookingsTypes(token: CashHelper.getData('token'),);
                           Navigator.pop(context);
 
                         },

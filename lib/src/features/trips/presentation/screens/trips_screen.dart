@@ -71,25 +71,14 @@ class TripsScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: BlocConsumer<BookingCubit, BookingStates>(
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return ConditionalBuilder(
-                      condition: state is! LoadingGetBookingsState,
-                      builder: (context) => const TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          UpcomingBookingsList(),
-                          FinishedBookingsList(),
-                          CancelledBookingsList(),
-                        ],
-                      ),
-                      fallback: (context) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
+              const Expanded(
+                child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    UpcomingBookingsList(),
+                    FinishedBookingsList(),
+                    CancelledBookingsList(),
+                  ],
                 ),
               ),
             ],

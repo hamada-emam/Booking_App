@@ -8,6 +8,8 @@ import 'package:booking_app/src/features/filter/presentation/components/my_slide
 import 'package:booking_app/src/features/filter/presentation/components/my_switch.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../app/core/components/text_form_fields/app_textform_field.dart';
+
 class FilterScreen extends StatelessWidget {
   FilterScreen({Key? key}) : super(key: key);
 
@@ -78,6 +80,21 @@ class FilterScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+              Text("Filter by address",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: mainGreyColor)),
+              const SizedBox(height: 20,),
+              AppTextFormField(
+                hintText: 'Enter the address',
+                controller: exploreCubit.addressController,
+              ),
+              const Divider(
+                height: 50,
+                thickness: 1,
+              ),
+
               Text("Price (for 1 night)",
                   style: Theme.of(context)
                       .textTheme
