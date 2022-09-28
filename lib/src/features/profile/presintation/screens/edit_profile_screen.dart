@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
+
 import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
 import 'package:booking_app/src/app/core/components/loaders/simple_loader.dart';
 import 'package:booking_app/src/app/core/components/text_form_fields/editable_txt_field.dart';
@@ -9,10 +14,6 @@ import 'package:booking_app/src/features/auth/data/models/user_model.dart';
 import 'package:booking_app/src/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/src/features/auth/presentation/cubit/states.dart';
 import 'package:booking_app/src/features/profile/presintation/widgets/profile_image_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({Key? key}) : super(key: key);
@@ -24,7 +25,6 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("object)))))))))))))))))))))");
     ProfileModel m = ModalRoute.of(context)!.settings.arguments as ProfileModel;
     return Scaffold(
         body: SafeArea(
