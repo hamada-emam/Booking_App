@@ -3,6 +3,7 @@ import 'package:booking_app/src/app/core/helpers/api_helpert.dart';
 import 'package:booking_app/src/app/injector.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
 import 'package:booking_app/src/features/explore_hotels/data/models/hotels_data_model.dart';
+import 'package:booking_app/src/features/filter/data/models/facilities_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class ExploreCubit extends Cubit<ExploreStates> {
   bool isMapScreen = false;
   TextEditingController searchController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  List<int?> facilities = []; //contains the id of each facility
 
   void changeScreen() {
     isMapScreen = !isMapScreen;
@@ -23,6 +25,7 @@ class ExploreCubit extends Cubit<ExploreStates> {
 
   AllHotelsData? allHotelsData;
   AllHotelsData? searchHotelsData;
+  AllFacilitiesData? allFacilitiesData;
 
   Future<void> getAllHotels({String? token}) async {
     try {
@@ -48,23 +51,56 @@ class ExploreCubit extends Cubit<ExploreStates> {
       emit(FailedGetHotelsDataState());
     }
   }
+  Future<void> getAllFacilities({String? token}) async {
+    try {
+      DioHelper apiHelper = sl<DioHelper>();
+      var value = await apiHelper.get(
+        endPoint: '/facilities',
+        token: token,
+      );
+      // showToastMessage(message: "${value.data['message']}");
+      allFacilitiesData = AllFacilitiesData.fromJson(value);
+      debugPrint("------------------facilities-----------------------------");
+      debugPrint(allFacilitiesData!.data.length.toString());
+      debugPrint("------------------facilities-----------------------------");
+
+    } on DioError catch (e) {
+      if (e.response == null) {
+        // showToastMessage(message: "Check you connection", toastColor: Colors.red);
+      } else {
+        debugPrint(e.response!.data);
+        // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
+      }
+    }
+  }
 
   Future<void> searchForHotels({
     String? token,
   }) async {
     emit(LoadingSearchState());
+    Map<String, dynamic> searchMap;
+    if (facilities.isNotEmpty) {
+      searchMap = {
+        'name': searchController.text,
+        'address': addressController.text,
+        'max_price': selectedPriceRange.end,
+        'min_price': selectedPriceRange.start,
+        'facilities[0]': facilities,
+      };
+    } else {
+      searchMap = {
+        'name': searchController.text,
+        'address': addressController.text,
+        'max_price': selectedPriceRange.end,
+        'min_price': selectedPriceRange.start,
+      };
+    }
     try {
       DioHelper apiHelper = sl<DioHelper>();
       var value = await apiHelper.get(
         endPoint: '/search-hotels',
         token: token,
-        query: {
-          'name': searchController.text,
-          'address' : addressController.text,
-          'max_price': selectedPriceRange.end,
-          'min_price': selectedPriceRange.start,
-          // 'facilities[0]': 1,
-        },
+        query: searchMap,
       );
       // showToastMessage(message: "${value.data['message']}");
       searchHotelsData = AllHotelsData.fromJson(value);
@@ -130,7 +166,7 @@ class ExploreCubit extends Cubit<ExploreStates> {
   }
 
   //filter data
-  var selectedPriceRange = const RangeValues(10, 6000);
+  var selectedPriceRange = const RangeValues(0, 500);
   double currentDistanceValue = 5;
 
   //Number of rooms widget data

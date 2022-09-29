@@ -24,6 +24,7 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var exploreCubit = ExploreCubit.get(context);
+    exploreCubit.facilities = [];
     return Scaffold(
       bottomSheet: Container(
         decoration: BoxDecoration(
@@ -85,7 +86,9 @@ class FilterScreen extends StatelessWidget {
                       .textTheme
                       .titleMedium!
                       .copyWith(color: mainGreyColor)),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               AppTextFormField(
                 hintText: 'Enter the address',
                 controller: exploreCubit.addressController,
@@ -104,6 +107,17 @@ class FilterScreen extends StatelessWidget {
                 height: 20,
               ),
               const MyRangeSlider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    Text('\$${exploreCubit.selectedPriceRange.start.floor()}'),
+                    Spacer(),
+                    Text('\$${exploreCubit.selectedPriceRange.end.floor()}'),
+
+                  ],
+                ),
+              ),
               const Divider(
                 height: 40,
                 thickness: 1,
@@ -115,41 +129,52 @@ class FilterScreen extends StatelessWidget {
                     .titleMedium!
                     .copyWith(color: mainGreyColor),
               ),
-              // Container(
-              //   height: 200,
-              //   child: GridView.builder(
-              //     shrinkWrap: true,
-              //     physics: const NeverScrollableScrollPhysics(),
-              //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              //     itemBuilder: (_, index) => MycheckBox(optionName: popularFilterOptions[index]),
-              //     itemCount: popularFilterOptions.length,
-              //   ),
-              // ),
+              exploreCubit.allFacilitiesData != null
+                  ? GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        mainAxisExtent: 50,
+                      ),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (_, index) => MycheckBox(
+                          facilityData:
+                              exploreCubit.allFacilitiesData!.data[index]),
+                      itemCount: ExploreCubit.get(context)
+                          .allFacilitiesData!
+                          .data
+                          .length,
+                    )
+                  : Container(),
               const SizedBox(
                 height: 10,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: const [
-                        MycheckBox(optionName: 'Free Breakfast'),
-                        MycheckBox(optionName: 'Pool'),
-                        MycheckBox(optionName: 'Free Wifi'),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: const [
-                        MycheckBox(optionName: 'Free Parking'),
-                        MycheckBox(optionName: 'Pet Friendly'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Expanded(
+              //       child: Column(
+              //         children: const [
+              //           MycheckBox(optionName: 'Free Breakfast'),
+              //           MycheckBox(optionName: 'Pool'),
+              //           MycheckBox(optionName: 'Free Wifi'),
+              //         ],
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: Column(
+              //         children: const [
+              //           MycheckBox(optionName: 'Free Parking'),
+              //           MycheckBox(optionName: 'Pet Friendly'),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
               const Divider(
                 height: 40,
                 thickness: 1,

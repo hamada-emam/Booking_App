@@ -1,3 +1,4 @@
+import 'package:booking_app/src/app/core/components/loaders/simple_loader.dart';
 import 'package:booking_app/src/app/core/core.dart';
 import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
@@ -38,12 +39,7 @@ class FinishedBookingsList extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
-              child: CircularProgressIndicator(
-                color: mainAppColor,
-                strokeWidth: 3,
-              ),
-            );
+            return const SimpleLoader();
           }
         });
   }

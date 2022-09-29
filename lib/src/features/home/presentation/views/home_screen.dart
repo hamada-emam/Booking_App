@@ -1,3 +1,4 @@
+import 'package:booking_app/src/app/core/utils/colors_manager.dart';
 import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/features/home/data/models/nav_bar_data.dart';
 
@@ -33,6 +34,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     )),
             bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: ColorManager.primaryColor,
                 onTap: (i) {
                   HomeCubit.get(context).changeIndex(i);
                 },

@@ -58,7 +58,6 @@ class GetStarted extends StatelessWidget {
             ),
             const Spacer(),
             MainButton(
-              color: Colors.blue,
               txt: "Get started",
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.onboarding);

@@ -24,9 +24,9 @@ class _MyRangeSliderState extends State<MyRangeSlider> {
         });
       },
       min: 0,
-      max: 6000,
+      max: 500,
       labels: RangeLabels('\$${exploreCubit.selectedPriceRange.start}', '\$${exploreCubit.selectedPriceRange.end}'),
-      divisions: 60,
+      divisions: 50,
     );
   }
 }

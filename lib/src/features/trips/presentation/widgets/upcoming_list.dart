@@ -1,3 +1,4 @@
+import 'package:booking_app/src/app/core/components/loaders/simple_loader.dart';
 import 'package:booking_app/src/app/core/core.dart';
 import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
@@ -17,7 +18,8 @@ class UpcomingBookingsList extends StatelessWidget {
     return BlocConsumer<BookingCubit, BookingStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          return ConditionalBuilder(
+          if (state is! LoadingGetBookingsState) {
+            return ConditionalBuilder(
             condition: bookingCubit.upcomingBookings != null,
             builder: (context) {
               return (bookingCubit.upcomingBookings!.data!.isEmpty)
@@ -41,6 +43,11 @@ class UpcomingBookingsList extends StatelessWidget {
               child: Text("There are no data here"),
             ),
           );
+          }
+          else
+            {
+              return const SimpleLoader();
+            }
 
         });
   }
