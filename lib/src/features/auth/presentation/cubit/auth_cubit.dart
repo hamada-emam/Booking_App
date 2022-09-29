@@ -81,12 +81,12 @@ class AuthCubit extends Cubit<AuthState> {
       },
       (r) {
         profileModel = r;
-
         emit(SuccessAuthState());
       },
     );
   }
 
+  bool withImage = false;
   //var base64string ;
   File? image;
   Future<String?> uploadImage() async {
@@ -97,6 +97,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (pickedFile != null) {
         String imagePath = pickedFile.path;
         image = File(imagePath);
+        print(image.toString());
         // String imageExtension = imagePath.split('.').last;
         // print(imageExtension);
         // Uint8List imageBytes =
@@ -105,6 +106,7 @@ class AuthCubit extends Cubit<AuthState> {
         //     base64.encode(imageBytes); //convert bytes to base64 string
         // base64string = "data:image/$imageExtension;base64,$base64string";
         // return base64string;
+        withImage = true;
         emit(SuccessImageState());
       }
     } on Exception catch (e) {
@@ -114,18 +116,22 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> editUserProfile(
-      {required UserModel user, String? imagepath}) async {
+  Future<void> editUserProfile({required UserModel user}) async {
     emit(LoadingUpdateProfileState());
-    final res =
-        await repository.updateProfile(user: user, imagePath: imagepath);
-    res.fold((l) {
+    final res = await repository.updateProfile(user: user, image: image);
+    res.fold((l) async {
       emit(
         ErrorAuthState(exception: l),
       );
-    }, (r) {
-      profileModel = r;
-      emit(SuccessUpdateProfileState());
+    }, (r) async {
+      userProfile().then((value) {
+        print("--------------");
+        print(profileModel!.data!.imageUrl);
+        print(r.data!.imageUrl);
+        print("--------------");
+
+        emit(SuccessUpdateProfileState());
+      });
     });
   }
 }
