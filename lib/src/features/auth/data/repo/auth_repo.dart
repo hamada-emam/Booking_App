@@ -28,7 +28,7 @@ abstract class AuthRepository {
   });
 
   Future<Either<PrimaryServerException, ProfileModel>> updateProfile(
-      {required UserModel user, String? imagePath});
+      {required UserModel user, File? image});
 }
 
 class RepositoryImplementation extends AuthRepository {
@@ -111,26 +111,28 @@ class RepositoryImplementation extends AuthRepository {
 
   @override
   Future<Either<PrimaryServerException, ProfileModel>> updateProfile(
-      {required UserModel user, String? imagePath}) async {
-    var formData = FormData.fromMap({
-      "name": user.name,
-      "email": user.email,
-      "image": imagePath != null
-          ? await MultipartFile.fromFile(imagePath)
-          : null,
-      "address": user.address,
-      "date_of_birth": user.dateOfBirth,
-      "phone": user.phone,
-    });
-
+      {required UserModel user, File? image}) async {
     return basicErrorHandling(
       onSuccess: () async {
-        final res = await dioHelper.post(
-            token: user.token,
-            isMultipart: imagePath == null,
-            endPoint: updateProfileEndPoint,
-            data: formData);
-        return ProfileModel.fromJson(res);
+        print("99999999999999999999999999999");
+        print(image.toString());
+        print("99999999999999999999999999999");
+
+        final response = await dioHelper.post(
+          endPoint: updateProfileEndPoint,
+          token: user.token,
+          isMultipart: true,
+          data: FormData.fromMap({
+            'name': user.name,
+            'email': user.email,
+            if (image != null)
+              'image': await MultipartFile.fromFile(
+                image.path,
+                filename: Uri.file(image.path).pathSegments.last,
+              ),
+          }),
+        );
+        return ProfileModel.fromJson(response);
       },
       onPrimaryServerException: (exception) async => exception,
     );
