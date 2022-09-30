@@ -6,6 +6,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../app/core/components/loaders/simple_loader.dart';
+
 class CancelledBookingsList extends StatelessWidget {
   const CancelledBookingsList({Key? key}) : super(key: key);
 
@@ -34,12 +36,7 @@ class CancelledBookingsList extends StatelessWidget {
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(
-              color: mainAppColor,
-              strokeWidth: 3,
-            ),
-          );
+          return const SimpleLoader();
         }
       },
     );

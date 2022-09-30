@@ -22,7 +22,6 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryManager().init(context);
     var exploreCubit = ExploreCubit.get(context);
-    // exploreCubit.getAllHotels();
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +35,8 @@ class ExploreScreen extends StatelessWidget {
         actions: [
           IconButton(
             splashRadius: 20,
-            onPressed: () {},
+            onPressed: () {
+            },
             icon: const Icon(
               Icons.favorite_border,
             ),

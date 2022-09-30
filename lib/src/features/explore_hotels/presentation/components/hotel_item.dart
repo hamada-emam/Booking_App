@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:booking_app/src/app/core/helpers/cash_helper.dart';
 import 'package:booking_app/src/app/core/utils/assets_manager.dart';
+import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/features/booking/cubit/booking_cubit.dart';
 import 'package:booking_app/src/features/booking/presentation/screens/booking_screen.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +43,9 @@ class HotelItem extends StatelessWidget {
                 children: [
                   hotelData.hotelImages!.isNotEmpty
                       ? Image.network(
-                          'http://api.mahmoudtaha.com/images/${hotelData.hotelImages![0].image}',
-                          height: 210,
-                          // width: 380,
+                          'http://api.mahmoudtaha.com/images/${hotelData.hotelImages![next(0, hotelData.hotelImages!.length-1)].image}',
+                          height: 200,
+                          width: MediaQueryManager.screenWidth,
                           fit: BoxFit.cover,
                           // height: 50,
                         )
@@ -130,7 +133,7 @@ class HotelItem extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 child: Column(
                   children: [
                     Row(
@@ -143,6 +146,7 @@ class HotelItem extends StatelessWidget {
                                 .titleLarge!
                                 .copyWith(fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
                           ),
                         ),
                         Text(
@@ -154,29 +158,22 @@ class HotelItem extends StatelessWidget {
                         )
                       ],
                     ),
+                    const SizedBox(height: 10,),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "${hotelData.address}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: Colors.grey),
-                        ),
-                        const Icon(
-                          Icons.location_on,
-                          size: 15,
-                        ),
                         Expanded(
                           child: Text(
-                            "2.0 km to city",
+                            "${hotelData.address}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(color: Colors.grey),
                             overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
                           ),
                         ),
+                        SizedBox(width: 10,),
                         Text(
                           "/per night",
                           style: Theme.of(context)
@@ -195,24 +192,8 @@ class HotelItem extends StatelessWidget {
                           Icons.star_rate_sharp,
                           size: 20,
                         ),
-                        const Icon(
-                          Icons.star_rate_sharp,
-                          size: 20,
-                        ),
-                        const Icon(
-                          Icons.star_rate_sharp,
-                          size: 20,
-                        ),
-                        const Icon(
-                          Icons.star_rate_sharp,
-                          size: 20,
-                        ),
-                        const Icon(
-                          Icons.star_rate_sharp,
-                          size: 20,
-                        ),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(
                           "${hotelData.rate}",
@@ -232,4 +213,7 @@ class HotelItem extends StatelessWidget {
       ),
     );
   }
+  final random = Random();
+
+  int next(int min, int max) => min + random.nextInt(max - min);
 }

@@ -28,6 +28,7 @@ class HomeExplore extends StatelessWidget {
   Widget build(BuildContext context) {
     var exploreCubit = ExploreCubit.get(context);
     exploreCubit.getAllHotels();
+    exploreCubit.getAllFacilities();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(

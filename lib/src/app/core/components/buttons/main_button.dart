@@ -17,7 +17,7 @@ class MainButton extends StatelessWidget {
       required this.txt,
       this.isExpanded = false,
       required this.onPressed,
-      this.color = const Color(0xFF1976D2),
+      this.color = ColorManager.primaryColor,
       this.borderRadius = 20.0})
       : super(key: key);
 

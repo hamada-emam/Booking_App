@@ -52,14 +52,13 @@ class _AutoPlayPagesState extends State<AutoPlayPages> {
             effect: const WormEffect(
                 dotHeight: 11,
                 dotWidth: 11,
-                activeDotColor: ColorMangerH.blue,
-                dotColor: ColorMangerH.inActiveColor),
+                activeDotColor: ColorManager.primaryColor,
+                dotColor: Colors.grey),
             controller: pageController,
             count: 3),
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
           child: MainButton(
-            color: Colors.blue.shade600,
             txt: "Login",
             onPressed: () {
               Navigator.of(context).pushNamed(Routes.login);
