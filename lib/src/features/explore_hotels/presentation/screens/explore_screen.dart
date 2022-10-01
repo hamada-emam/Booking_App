@@ -35,8 +35,7 @@ class ExploreScreen extends StatelessWidget {
         actions: [
           IconButton(
             splashRadius: 20,
-            onPressed: () {
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.favorite_border,
             ),
@@ -156,7 +155,8 @@ class ExploreScreen extends StatelessWidget {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Text("${exploreCubit.numberOfRooms} Room ${exploreCubit.numberOfPeople} People"),
+                                Text(
+                                    "${exploreCubit.numberOfRooms} Room ${exploreCubit.numberOfPeople} People"),
                               ],
                             );
                           },
@@ -210,9 +210,9 @@ class ExploreScreen extends StatelessWidget {
                           ? Stack(
                               children: [
                                 // !!!!!!!!!!!!!!!!!!!!!!!  uncomment this in need only
-                                // MapScreen(
-                                //   allHotelsData: exploreCubit.allHotelsData!,
-                                // ),
+                                MapScreen(
+                                  allHotelsData: exploreCubit.allHotelsData!,
+                                ),
                                 //TODO : implement Horizontal List View
                                 ConditionalBuilder(
                                   condition: exploreCubit.allHotelsData != null,

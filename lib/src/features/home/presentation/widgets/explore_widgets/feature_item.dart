@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:booking_app/src/app/config/routes/routes.dart';
 import 'package:booking_app/src/features/explore/details_page.dart';
 import 'package:booking_app/src/features/explore_hotels/data/models/hotel_data.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class FeatureItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20.0),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) =>const Details()));
+          Navigator.pushNamed(context, Routes.details,arguments: hotelData);
         },
         child: Container(
           height: 160,
