@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/core/utils/colors_manager.dart';
+
 class DetailsRate extends StatelessWidget {
   final String rate;
   const DetailsRate({Key? key, required this.rate}) : super(key: key);
@@ -7,7 +9,7 @@ class DetailsRate extends StatelessWidget {
     return Container(
       width: endIndent,
       height: 3.5,
-      color: Colors.blue.shade800,
+      color: ColorManager.primaryColor,
     );
   }
 
@@ -25,7 +27,7 @@ class DetailsRate extends StatelessWidget {
               Text(
                 rate,
                 style: TextStyle(
-                    color: Colors.blue.shade800,
+                    color: ColorManager.primaryColor,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
