@@ -1,4 +1,5 @@
 import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
+import 'package:booking_app/src/app/core/utils/colors_manager.dart';
 import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/app/core/utils/text_styles_manager.dart';
 import 'package:booking_app/src/features/explore_hotels/data/models/hotel_data.dart';
@@ -13,37 +14,54 @@ class DetailsHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              hotelData.name!,
-              style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.black,
-                  fontWeight: FontWeightManager.bold),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  hotelData.name!,
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.black,
+                      fontWeight: FontWeightManager.bold),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(height: 10,),
+                Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          hotelData.address!.split(",")[1],
+                          style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5,),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      color: ColorManager.primaryColor,
+                      size: 20,
+                    ),
+                    Text(
+                      "5.0km to city",
+                      style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Container(
-              child: Row(
-                children: [
-                  Text(
-                    hotelData.address!.split(",")[1],
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
-                  ),
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.blue,
-                    size: 20,
-                  ),
-                  Text(
-                    "5.0km to city",
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
         Column(
           children: [
