@@ -1,9 +1,11 @@
 import 'package:booking_app/src/app/core/utils/colors_manager.dart';
+import 'package:booking_app/src/features/explore/data/models/popular_destination_model.dart';
 import 'package:flutter/material.dart';
 
 class DestinationItem extends StatelessWidget {
+  final PopularDestination popularDestination;
   const DestinationItem({
-    Key? key,
+    Key? key, required this.popularDestination,
   }) : super(key: key);
 
   @override
@@ -11,11 +13,11 @@ class DestinationItem extends StatelessWidget {
     return Stack(children: [
       Container(
         height: 180,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(const Radius.circular(20)),
           image: DecorationImage(
             image: AssetImage(
-              "assets/images/italy.jpg",
+              popularDestination.imagePath,
             ),
             fit: BoxFit.cover,
           ),
@@ -25,7 +27,7 @@ class DestinationItem extends StatelessWidget {
         top: 10,
         left: 20,
         child: Text(
-          "Italy",
+          popularDestination.countryName,
           style: Theme.of(context)
               .textTheme
               .headline5!
