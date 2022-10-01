@@ -2,6 +2,7 @@ import 'package:booking_app/src/app/config/routes/routes.dart';
 import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
 import 'package:booking_app/src/app/core/components/text_form_fields/app_textform_field.dart';
 import 'package:booking_app/src/app/core/utils/colors_manager.dart';
+import 'package:booking_app/src/features/explore/data/models/popular_destination_model.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_cubit.dart';
 import 'package:booking_app/src/features/explore_hotels/cubit/explore_states.dart';
 import 'package:booking_app/src/features/home/presentation/widgets/explore_widgets/destination_item.dart';
@@ -14,16 +15,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class HomeExplore extends StatelessWidget {
-  // var Images = {
-  //   "paris": "assets/images/paris.jpg",
-  //   "spain": "assets/images/spain.jpg",
-  //   "egypt": "assets/images/egypt.jpg",
-  //   "vernazza": "assets/images/download.jpg",
-  //   "london": "assets/images/hotel.jpg",
-  //   "venice": "assets/images/hotel.jpg",
-  //   "diamond head": "assets/images/hotel.jpg",
-  // };
-  List<String> itemList = [];
+
+
+  List<PopularDestination> popularDestination = [
+    PopularDestination(countryName: "Egypt", imagePath: 'assets/images/egypt.jpg'),
+    PopularDestination(countryName: "Dubai", imagePath: 'assets/images/dubai.jpg'),
+    PopularDestination(countryName: "Rome", imagePath: 'assets/images/italy.jpg'),
+    PopularDestination(countryName: "London", imagePath: 'assets/images/london.jpg'),
+    PopularDestination(countryName: "Paris", imagePath: 'assets/images/paris.jpg'),
+    PopularDestination(countryName: "Venice", imagePath: 'assets/images/venice.jpg'),
+  ];
 
   Widget build(BuildContext context) {
     var exploreCubit = ExploreCubit.get(context);
@@ -51,47 +52,8 @@ class HomeExplore extends StatelessWidget {
         floatHeaderSlivers: true,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            // SliverAppBar(
-            //   backgroundColor: Colors.transparent,
-            //   floating: true,
-            //   pinned: true,
-            //   title: Container(
-            //     margin: EdgeInsets.symmetric(horizontal: 10),
-            //     height: 40,
-            //     decoration: BoxDecoration(
-            //       boxShadow: <BoxShadow>[
-            //         BoxShadow(
-            //             color: Colors.grey.withOpacity(0.6),
-            //             offset: const Offset(1.1, 1.1),
-            //             blurRadius: 5.0),
-            //       ],
-            //     ),
-            //     child: CupertinoTextField(
-            //       controller: _filter,
-            //       keyboardType: TextInputType.text,
-            //       placeholder: 'Search',
-            //       placeholderStyle: TextStyle(
-            //         color: Color(0xffC4C6CC),
-            //         fontSize: 14.0,
-            //         fontFamily: 'Brutal',
-            //       ),
-            //       prefix: Padding(
-            //         padding: const EdgeInsets.fromLTRB(5.0, 5.0, 0.0, 5.0),
-            //         child: Icon(
-            //           Icons.search,
-            //           size: 18,
-            //           color: Colors.black,
-            //         ),
-            //       ),
-            //       decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(8.0),
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SliverAppBar(
-              expandedHeight: 300.0,
+              expandedHeight: 400.0,
               pinned: true,
               elevation: 0,
               stretch: true,
@@ -107,41 +69,48 @@ class HomeExplore extends StatelessWidget {
                   children: [
                     CarouselSlider(
                       options: CarouselOptions(
-                        height: 450,
+                        height: 550,
                         autoPlay: true,
                         viewportFraction: 1,
                         pageSnapping: true,
                       ),
                       items: List.generate(
-                        5,
+                        popularDestination.length,
                         (index) => Image.asset(
-                          "assets/images/venice.jpg",
+                          popularDestination[index].imagePath,
                           fit: BoxFit.cover,
                           width: double.infinity,
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 15,
-                      left: 30,
-                      child: SizedBox(
-                        width: 130,
-                        child: MainButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.exploreHotels);
-                          },
-                          txt: "View Hotels",
+                    // Positioned(
+                    //   bottom: 15,
+                    //   left: 30,
+                    //   child: SizedBox(
+                    //     width: 130,
+                    //     child: MainButton(
+                    //       onPressed: () {
+                    //         Navigator.pushNamed(context, Routes.exploreHotels);
+                    //       },
+                    //       txt: "View Hotels",
+                    //     ),
+                    //   ),
+                    // )
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0,200,0,20),
+                        child: Container(
+                          width: 130,
+                          child: MainButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, Routes.exploreHotels);
+                            },
+                            txt: "View Hotels",
+                          ),
                         ),
                       ),
                     )
-                    // Container(
-                    //   height: 500,
-                    //   width: size.width,
-                    //   child: Image.asset(
-                    //     "assets/images/hotel.jpg",
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -186,10 +155,10 @@ class HomeExplore extends StatelessWidget {
                         viewportFraction: .8,
                       ),
                       items: List.generate(
-                        exploreCubit.allHotelsData!.data!.length,
-                        (index) => const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: DestinationItem(),
+                        popularDestination.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DestinationItem(popularDestination: popularDestination[index]),
                         ),
                       ),
                     ),
