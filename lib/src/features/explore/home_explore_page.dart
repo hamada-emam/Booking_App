@@ -33,6 +33,7 @@ class HomeExplore extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -53,6 +54,7 @@ class HomeExplore extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              automaticallyImplyLeading: false,
               expandedHeight: 400.0,
               pinned: true,
               elevation: 0,

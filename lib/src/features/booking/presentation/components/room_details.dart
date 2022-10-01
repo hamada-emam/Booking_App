@@ -9,14 +9,15 @@ class RoomDetails extends StatelessWidget {
   final String roomType;
   final int pricePerNight;
   final int? hotelId;
-  const RoomDetails({Key? key, required this.roomType, required this.pricePerNight, required this.hotelId}) : super(key: key);
+  final String image;
+  const RoomDetails({Key? key, required this.roomType, required this.pricePerNight, required this.hotelId, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Image.asset(
-          AssetsManager.hotelImage,
+          image,
           height: 250,
           width: double.infinity,
           fit: BoxFit.cover,
