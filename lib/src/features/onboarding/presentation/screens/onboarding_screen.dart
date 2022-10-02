@@ -9,10 +9,10 @@ class OnboardingScreen extends StatelessWidget {
     MediaQueryManager().init(context);
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
-        body: Padding(
+        body: const Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQueryManager.screenWidth * 0.1),
-          child: const AutoPlayPages(),
+              horizontal: 20),
+          child: AutoPlayPages(),
         ));
   }
 }

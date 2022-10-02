@@ -26,6 +26,7 @@ class AutoLoginWidget extends StatelessWidget {
             primary: color,
             shape: StadiumBorder()),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(icon, height: 20),
             Text(title,

@@ -32,6 +32,12 @@ class SignupScreen extends StatelessWidget {
     return BlocProvider<AuthCubit>(
         create: (context) => AuthCubit(repository: sl()),
         child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              StringsManager.signupTitle,
+              style: getBoldStyle(fontSize: FontSize.s22),
+            ),
+          ),
           backgroundColor: ColorMangerH.appBgColor,
           body: SafeArea(
             child: SingleChildScrollView(
@@ -41,27 +47,17 @@ class SignupScreen extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: InkWell(
-                              child: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
-                              ),
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
                             ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
                           ),
-                        ),
-                        Text(
-                          StringsManager.signupTitle,
-                          style: getBoldStyle(fontSize: FontSize.s22),
-                        ),
-                        SizedBox(
-                          height: MediaQueryManager.screenHeight * 0.05,
                         ),
                         const AutoAuthWidget(),
                         const OrLogDivider(),
@@ -92,6 +88,7 @@ class SignupScreen extends StatelessWidget {
                                             .uploadImage();
                                       },
                                       child: const CircleAvatar(
+                                        radius: 30,
                                         child: Icon(Icons.image),
                                       ),
                                     );

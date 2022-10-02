@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:booking_app/src/app/core/components/buttons/main_button.dart';
 import 'package:booking_app/src/app/core/utils/colors_manager.dart';
-import 'package:booking_app/src/app/core/utils/mediaquery_managment.dart';
 import 'package:booking_app/src/features/explore/widgtes/details_header.dart';
 import 'package:booking_app/src/features/explore/widgtes/details_photo.dart';
 import 'package:booking_app/src/features/explore/widgtes/details_rate.dart';
@@ -10,8 +8,6 @@ import 'package:booking_app/src/features/explore/widgtes/details_review.dart';
 import 'package:booking_app/src/features/explore/widgtes/details_summary.dart';
 import 'package:booking_app/src/features/explore/widgtes/hotel_box_details.dart';
 import 'package:booking_app/src/features/explore_hotels/data/models/hotel_data.dart';
-import 'package:booking_app/src/features/explore_hotels/data/models/hotels_data_model.dart';
-import 'package:booking_app/src/features/explore_hotels/presentation/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -76,10 +72,10 @@ class Details extends StatelessWidget {
                 ),
                 SliverToBoxAdapter(
                     child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       DetailsHeader(
@@ -88,16 +84,17 @@ class Details extends StatelessWidget {
                       DetailsSummary(
                         hotelData: hotelData!.description!,
                       ),
-                      SizedBox(
-                        height: 30,
+                      const SizedBox(
+                        height: 20,
                       ),
                       DetailsRate(
                         rate: hotelData!.rate!,
                       ),
-                      buildViewAllWidget("Photo"),
+                      const SizedBox(height: 20,),
+                      buildViewAllWidget("Photos"),
                       DetailsPhoto(photos: hotelData!.hotelImages!),
                       buildViewAllWidget("Reviews"),
-                      DetailsReview(
+                      const DetailsReview(
                           name: "Jacky depp",
                           userImage: " ",
                           review:
@@ -107,14 +104,14 @@ class Details extends StatelessWidget {
                         height: 300,
                         width: 500,
                         child: GoogleMap(
-                          markers: <Marker>[
+                          markers: <Marker>{
                             Marker(
                                 markerId: MarkerId("dfdf"),
                                 position: LatLng(
                                   double.parse(hotelData!.latitude!),
                                   double.parse(hotelData!.longitude!),
                                 ))
-                          ].toSet(),
+                          },
                           // on below line setting camera position
                           initialCameraPosition: CameraPosition(
                               zoom: 9,
@@ -135,11 +132,14 @@ class Details extends StatelessWidget {
                           },
                         ),
                       ),
-                      MainButton(
-                        txt: "Book Now",
-                        isExpanded: true,
-                        onPressed: () {},
-                        color: Colors.blue,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: MainButton(
+                          txt: "Book Now",
+                          isExpanded: true,
+                          onPressed: () {},
+                          color: ColorManager.primaryColor,
+                        ),
                       )
                     ],
                   ),
@@ -153,8 +153,8 @@ class Details extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5.0),
                       child: CircleAvatar(
                           backgroundColor: Colors.black38,
                           child: Icon(
@@ -164,13 +164,13 @@ class Details extends StatelessWidget {
                     )),
                 GestureDetector(
                     onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5.0),
                       child: CircleAvatar(
                           backgroundColor: Colors.white,
                           child: Icon(
                             Icons.favorite_outline,
-                            color: Colors.blue,
+                            color: ColorManager.primaryColor,
                             size: 25,
                           )),
                     )),

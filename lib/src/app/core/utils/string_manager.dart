@@ -3,7 +3,7 @@ class StringsManager {
   static const String loginTitle = "Login";
   static const String facebook = "   Facebook";
   static const String twitter = "   twitter";
-  static const String orLogWith = " or log with email";
+  static const String orLogWith = " Or log with email";
    static const String yourEmail = "Your email";
   static const String hintEmail = "enter your email";
     static const String yourPassword = "Password";

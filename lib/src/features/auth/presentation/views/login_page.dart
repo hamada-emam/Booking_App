@@ -31,26 +31,28 @@ class LoginScreen extends StatelessWidget {
         create: (context) => AuthCubit(repository: sl()),
         child: Scaffold(
           appBar: AppBar(
-              backgroundColor: ColorMangerH.appBarColor,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                color: Colors.black,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )),
+            backgroundColor: ColorMangerH.appBarColor,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.black,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            title: Text(
+              StringsManager.loginTitle,
+              style: getBoldStyle(fontSize: FontSize.s22),
+            ),
+            titleSpacing: 10,
+          ),
           backgroundColor: ColorMangerH.appBgColor,
           body: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Form(
                 key: formkey,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        StringsManager.loginTitle,
-                        style: getBoldStyle(fontSize: FontSize.s22),
-                      ),
                       SizedBox(
                         height: MediaQueryManager.screenHeight * 0.05,
                       ),
@@ -83,6 +85,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 5,),
                       BlocConsumer<AuthCubit, AuthState>(
                         listener: (context, state) {
                           if (state is SuccessAuthState) {
