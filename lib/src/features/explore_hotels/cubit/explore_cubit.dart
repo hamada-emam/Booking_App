@@ -114,6 +114,7 @@ class ExploreCubit extends Cubit<ExploreStates> {
         // showToastMessage(message: "Check you connection", toastColor: Colors.red);
       } else {
         debugPrint(e.response!.data);
+      
         // showToastMessage(message: "${e.response!.data['message']}", toastColor: Colors.red);
       }
       emit(FailedSearchState());

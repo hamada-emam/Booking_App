@@ -15,7 +15,7 @@ class HotelBoxDetails extends StatelessWidget {
         height: 150,
         padding: EdgeInsets.all(10),
         width: MediaQueryManager.screenWidth,
-        margin: EdgeInsets.fromLTRB(50,50,50,10),
+        margin: EdgeInsets.fromLTRB(30, 30, 30, 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.black26,
@@ -25,11 +25,46 @@ class HotelBoxDetails extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      hotelData.name!,
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(fontSize: 22, color: Colors.white),
+                    ),
+                    Container(
+                      height: 20,
+                      child: Row(
+                        children: [
+                          Text(
+                            hotelData.address!.split(",")[1],
+                            style: TextStyle(fontSize: 10),
+                          ),
+                          Icon(
+                            Icons.location_on,
+                            color: Colors.blue,
+                            size: 20,
+                          ),
+                          Text(
+                            "5.0km to city",
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(children: [
+                      ...List.generate(
+                          5,
+                          (index) => Icon(
+                                Icons.star,
+                                color: index != 4 ? Colors.blue : Colors.grey,
+                                size: 15,
+                              )),
+
                       Text(
                         hotelData.name!,
                         style: TextStyle(fontSize: 22, color: Colors.white),
@@ -92,7 +127,6 @@ class HotelBoxDetails extends StatelessWidget {
               onPressed: () {},
               color: ColorManager.primaryColor,
             ),
-
           ],
         ));
   }

@@ -79,6 +79,9 @@ class Details extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 5,
+                      ),
                       DetailsHeader(
                         hotelData: hotelData!,
                       ),
@@ -109,7 +112,7 @@ class Details extends StatelessWidget {
                                 markerId: MarkerId("dfdf"),
                                 position: LatLng(
                                   double.parse(hotelData!.latitude!),
-                                  double.parse(hotelData!.latitude!),
+                                  double.parse(hotelData!.longitude!),
                                 ))
                           ].toSet(),
                           // on below line setting camera position
@@ -117,7 +120,7 @@ class Details extends StatelessWidget {
                               zoom: 9,
                               target: LatLng(
                                 double.parse(hotelData!.latitude!),
-                                double.parse(hotelData!.latitude!),
+                                double.parse(hotelData!.longitude!),
                               )),
                           // on below line specifying map type.
                           mapType: MapType.normal,
