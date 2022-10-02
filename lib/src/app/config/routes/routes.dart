@@ -54,7 +54,7 @@ class Routes {
       payment: (context) => const Payment(),
       // booking: (context) => BookingScreen(),
       settings: (context) => const Settings(),
-      details: (context) => const Details(),
+      details: (context) =>  Details(),
     };
   }
 }
