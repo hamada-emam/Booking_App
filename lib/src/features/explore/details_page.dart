@@ -136,7 +136,7 @@ class Details extends StatelessWidget {
                         txt: "Book Now",
                         isExpanded: true,
                         onPressed: () {},
-                        color: Colors.blue,
+                        color: ColorManager.primaryColor,
                       )
                     ],
                   ),
