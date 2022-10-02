@@ -14,7 +14,7 @@ class HotelBoxDetails extends StatelessWidget {
         height: 150,
         padding: EdgeInsets.all(10),
         width: MediaQueryManager.screenWidth,
-        margin: EdgeInsets.fromLTRB(50,50,50,10),
+        margin: EdgeInsets.fromLTRB(30, 30, 30, 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.black26,
@@ -30,6 +30,7 @@ class HotelBoxDetails extends StatelessWidget {
                   children: [
                     Text(
                       hotelData.name!,
+                      overflow: TextOverflow.fade,
                       style: TextStyle(fontSize: 22, color: Colors.white),
                     ),
                     Container(
@@ -47,6 +48,7 @@ class HotelBoxDetails extends StatelessWidget {
                           ),
                           Text(
                             "5.0km to city",
+                            overflow: TextOverflow.fade,
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -88,7 +90,6 @@ class HotelBoxDetails extends StatelessWidget {
               onPressed: () {},
               color: Colors.blue,
             ),
-
           ],
         ));
   }

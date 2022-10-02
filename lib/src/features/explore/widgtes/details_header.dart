@@ -29,7 +29,7 @@ class DetailsHeader extends StatelessWidget {
                 children: [
                   Text(
                     hotelData.address!.split(",")[1],
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                   Icon(
                     Icons.location_on,
@@ -38,7 +38,7 @@ class DetailsHeader extends StatelessWidget {
                   ),
                   Text(
                     "5.0km to city",
-                    style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
