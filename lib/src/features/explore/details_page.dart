@@ -36,7 +36,7 @@ class Details extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                       background: Image.network(
                         'http://api.mahmoudtaha.com/images/${hotelData!.hotelImages![0].image}',
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                       collapseMode: CollapseMode.pin,
                       titlePadding: EdgeInsets.zero,
