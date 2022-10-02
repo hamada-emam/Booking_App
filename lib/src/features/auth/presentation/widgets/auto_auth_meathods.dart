@@ -9,18 +9,22 @@ class AutoAuthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        AutoLoginWidget(
-            color: Colors.blue.shade900,
-            icon: AssetsManager.facebookLogo,
-            ontap: () {},
-            title: StringsManager.facebook),
-        AutoLoginWidget(
-            color: Colors.lightBlue,
-            icon: AssetsManager.twitterLogo,
-            ontap: () {},
-            title: StringsManager.twitter)
+        Expanded(
+          child: AutoLoginWidget(
+              color: Colors.blue.shade900,
+              icon: AssetsManager.facebookLogo,
+              ontap: () {},
+              title: StringsManager.facebook),
+        ),
+        const SizedBox(width: 20,),
+        Expanded(
+          child: AutoLoginWidget(
+              color: Colors.lightBlue,
+              icon: AssetsManager.twitterLogo,
+              ontap: () {},
+              title: StringsManager.twitter),
+        )
       ],
     );
   }

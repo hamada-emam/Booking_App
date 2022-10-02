@@ -66,6 +66,7 @@ class _AutoPlayPagesState extends State<AutoPlayPages> {
             isExpanded: true,
           ),
         ),
+        const SizedBox(height: 5,),
         MainButton(
           txt: "Create account",
           txtColor: ColorMangerH.darker,

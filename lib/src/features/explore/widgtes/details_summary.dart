@@ -13,10 +13,10 @@ class DetailsSummary extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
-        Text(
+        const Text(
           "Summary",
           style: TextStyle(
               fontSize: 16,
@@ -25,9 +25,7 @@ class DetailsSummary extends StatelessWidget {
         ),
         Text(
           hotelData,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontSize: 15, color: Colors.grey),
+          style: const TextStyle(fontSize: 15, color: Colors.grey),
         ),
       ],
     );
